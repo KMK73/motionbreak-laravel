@@ -200,18 +200,20 @@ COMPLETED BREAKS ROUTES TODO****************
     public function enteredMonitoredLocation($uuid) {
         //using device token to look up user
         $user = User::where('uuid', '=', $uuid)->first();
-//        $user->monitoringLocation = true;
-//        $user->save();
+        //get user_id
+        $user_id = $user->id; 
+        echo "user_id : " . $user_id . "\n"; 
+ 
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();
-        //with reminder interval and hard coded 1
-        $job = (new SendBreakNotification(1))->delay($break->reminder_interval);
-        //$job = (new SendBreakNotification(1))->delay(60);
+        //with reminder interval and hard coded 1 for user******
+        $job = (new SendBreakNotification($user_id))->delay($break->reminder_interval);
+        //dispatch job
         $job_id = $this->dispatch($job);
         
         //UPDATE USER BREAK with job_id
         $break->job_id = $job_id;
-        echo "Break JOB ID IS : " . $break->job_id . "\n"; 
+        echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
         return response()->json(['success' => true]);
     }
     

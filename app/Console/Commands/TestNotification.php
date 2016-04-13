@@ -148,13 +148,15 @@ class TestNotification extends Command
        // }//for each
         $break = UserBreak::where('uuid', '=', $uuid)->first();
         echo "Break interval is: " .$break->reminder_interval ."\n"; 
-//        $job = (new \App\Jobs\SendBreakNotification(1))->delay(60);
-        $job = (new \App\Jobs\SendBreakNotification(1))->delay($break->reminder_interval);
+        
+        //get user_id
+        $user_id = $user->id; 
+        echo "user_id : " . $user_id . "\n"; 
+        $job = (new \App\Jobs\SendBreakNotification($user_id))->delay($break->reminder_interval);
         $job_id = dispatch($job);
         echo "JOB ID IS : " . $job_id . "\n";
                 
-        //UPDATE USER BREAK with new job_id**********
-//        $break->job_id = $job_id;
+        //UPDATE USER BREAK with new job_id
         $break->job_id = $job_id;
         //update the new values
         $break->save();

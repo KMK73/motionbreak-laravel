@@ -175,6 +175,8 @@ COMPLETED BREAKS ROUTES TODO****************
 
    //*********WANT TO MAKE THIS AN UPDATE NOT POST 
     public function addBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
+        
+        
         $break = UserBreak::where('user_id', '=', $user_id)->first();
         
         
@@ -205,14 +207,26 @@ COMPLETED BREAKS ROUTES TODO****************
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();
 //        $job = (new SendBreakNotification($user))->delay($break->reminder_interval);
-        $job = (new SendBreakNotification())->delay(60);
-        $this->dispatch($job);
+        $job = (new SendBreakNotification(1))->delay(60);
+        $job_id = $this->dispatch($job);
+        
+        //UPDATE USER BREAK with job_id
+//        $break->job_id = $job_id;
         return response()->json(['success' => true]);
     }
     
     public function exitedMonitoredLocation($uuid) {
         $user = User::where('uuid', '=', $uuid)->first();
         \Artisan::queue('queue:clear', ['connection' => 'database', 'queue' => 'user'. $user->id]);   
+        
+        //FIND USER BREAK RECORD
+        
+        //GET JOB ID FROM USER BREAK RECORD
+        
+        //DELETE FROM JOBS TABLE WHERE ID = JOB_ID
+//         DB::delete('delete from jobs WHERE id = ?', [$job_id]);
+//        DB::delete('delete from jobs WHERE id = $job_id');
+        
         return response()->json(['success' => true]);
     }
     

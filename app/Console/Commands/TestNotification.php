@@ -8,6 +8,7 @@ use App\User; //user model
 use App\UserLocation; //user location model
 use App\CompletedMovement; //completed movement model
 use App\UserBreak; //user breaks model
+use App\Jobs\Job;
 
 class TestNotification extends Command
 {
@@ -30,6 +31,8 @@ class TestNotification extends Command
      *
      * @return void
      */
+    
+    
     public function __construct()
     {
         //pass in the user that launched this job through the controller
@@ -142,7 +145,11 @@ class TestNotification extends Command
             
 
        // }//for each
-        
+        $job = (new \App\Jobs\SendBreakNotification(1))->delay(60);
+        $job_id = dispatch($job);
+        echo "JOB ID IS : " . $job_id;
+                //UPDATE USER BREAK with new job_id
+//        $break->job_id = $job_id;
 
         
     }//end of handle function

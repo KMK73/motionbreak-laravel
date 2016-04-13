@@ -74,9 +74,8 @@ COMPLETED BREAKS ROUTES TODO****************
 */
 Route::get('/api/completed_breaks', 'APIController@getBreakSettings');
 Route::get('/api/completed_breaks/{uuid}', 'APIController@breakWithUUID');
-// adding new completed movement
-//****** HOW TO ADD USER_ID FROM APP?? WANT THIS TO BE "UPDATE" NOT JUST ADDING A BUNCH
-Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@addBreakSettings');
+// update break settings
+Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@updateBreakSettings');
 
 /* 
 IOS NOTIFICATION ROUTES

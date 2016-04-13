@@ -160,6 +160,7 @@ COMPLETED BREAKS ROUTES TODO****************
             $table->integer('reminder_interval');
             $table->integer('user_id');
             $table->string('uuid');
+            $table->integer('job_id');
             $table->timestamps();
         });
         */
@@ -173,14 +174,11 @@ COMPLETED BREAKS ROUTES TODO****************
         return response()->json(array('breaks' => $breaks));
     }
 
-   //*********WANT TO MAKE THIS AN UPDATE NOT POST 
-    public function addBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
+   //update only one row 
+    public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
         
-        
+        //find user break row
         $break = UserBreak::where('user_id', '=', $user_id)->first();
-        
-        
-//        $newBreak = new UserBreak;
         
         $break->user_id = $user_id;
         $break->uuid = $uuid;
@@ -188,7 +186,7 @@ COMPLETED BREAKS ROUTES TODO****************
         $break->break_goal = $break_goal;
         $break->start_time = $start_time;
         $break->end_time = $end_time;
-
+        //update the new values
         $break->save();
                 
         return response()->json($break); 
@@ -212,7 +210,8 @@ COMPLETED BREAKS ROUTES TODO****************
         $job_id = $this->dispatch($job);
         
         //UPDATE USER BREAK with job_id
-//        $break->job_id = $job_id;
+        $break->job_id = $job_id;
+        echo "Break JOB ID IS : " . $break->job_id . "\n"; 
         return response()->json(['success' => true]);
     }
     

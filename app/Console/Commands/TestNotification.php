@@ -64,8 +64,8 @@ class TestNotification extends Command
             
             //***CHANGE TO UPDATED AT
             //get users start and end time matching that UUID order by desc to get last value
-            $startTime = UserBreak::orderby('created_at', 'desc')->where('uuid', $uuid)->value('start_time');
-            $endTime = UserBreak::orderby('created_at', 'desc')->where('uuid', $uuid)->value('end_time');          
+            $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
+            $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
 
             //time now
@@ -155,7 +155,9 @@ class TestNotification extends Command
                 
         //UPDATE USER BREAK with new job_id**********
 //        $break->job_id = $job_id;
-
+        $break->job_id = $job_id;
+        //update the new values
+        $break->save();
         
     }//end of handle function
 }

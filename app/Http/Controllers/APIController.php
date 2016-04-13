@@ -206,8 +206,9 @@ COMPLETED BREAKS ROUTES TODO****************
 //        $user->save();
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();
-//        $job = (new SendBreakNotification($user))->delay($break->reminder_interval);
-        $job = (new SendBreakNotification(1))->delay(60);
+        //with reminder interval and hard coded 1
+        $job = (new SendBreakNotification(1))->delay($break->reminder_interval);
+        //$job = (new SendBreakNotification(1))->delay(60);
         $job_id = $this->dispatch($job);
         
         //UPDATE USER BREAK with job_id

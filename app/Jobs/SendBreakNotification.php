@@ -40,8 +40,9 @@ class SendBreakNotification extends Job implements ShouldQueue, SelfHandling
         
         \Artisan::queue('notification:test', [
             'user' => $this->user_id]);
-        //create another job after the the above gets queued. this will create a never ending infinite loop.
-//$this->user->break_interval()->reminder_interval
+        //create another job after the the above gets queued. this will create a never ending infinite loop. THIS IS BEING DONE IN TEST NOTIFICATION.PHP
+
+        //$this->user->break_interval()->reminder_interval
        
 //        $job= (new SendBreakNotification())->delay(60);    
 //        $this->dispatch($job);

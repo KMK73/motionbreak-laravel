@@ -62,6 +62,7 @@ class TestNotification extends Command
             $uuid = $user->uuid;
             echo "uuid ".$uuid . "\n"; 
             
+            //***CHANGE TO UPDATED AT
             //get users start and end time matching that UUID order by desc to get last value
             $startTime = UserBreak::orderby('created_at', 'desc')->where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::orderby('created_at', 'desc')->where('uuid', $uuid)->value('end_time');          
@@ -145,10 +146,14 @@ class TestNotification extends Command
             
 
        // }//for each
-        $job = (new \App\Jobs\SendBreakNotification(1))->delay(60);
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        echo "Break interval is: " .$break->reminder_interval ."\n"; 
+//        $job = (new \App\Jobs\SendBreakNotification(1))->delay(60);
+        $job = (new \App\Jobs\SendBreakNotification(1))->delay($break->reminder_interval);
         $job_id = dispatch($job);
-        echo "JOB ID IS : " . $job_id;
-                //UPDATE USER BREAK with new job_id
+        echo "JOB ID IS : " . $job_id . "\n";
+                
+        //UPDATE USER BREAK with new job_id**********
 //        $break->job_id = $job_id;
 
         

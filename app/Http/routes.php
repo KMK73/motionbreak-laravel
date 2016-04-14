@@ -85,4 +85,5 @@ IOS NOTIFICATION ROUTES
 Route::get('/api/test/notification', 'APIController@notification');
 //route for location based pushes
 Route::get('api/enter/{uuid}', 'APIController@enteredMonitoredLocation');
+//delete job_id in queue 
 Route::get('api/exit/{uuid}', 'APIController@exitedMonitoredLocation');

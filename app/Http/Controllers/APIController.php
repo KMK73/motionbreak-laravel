@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB; //to be able to access database for jobs table
 use App\Http\Requests;
 use App\User; //user model
 use App\UserLocation; //user location model
@@ -11,7 +12,7 @@ use App\Movement; //movement model
 use App\CompletedMovement; //completed movement model
 use App\UserBreak; //user breaks model
 use App\Jobs\SendBreakNotification;
-use Davibennun\LaravelPushNotification;
+use Davibennun\LaravelPushNotification;//package to send ios notifications
 
 class APIController extends Controller
 {
@@ -218,20 +219,28 @@ COMPLETED BREAKS ROUTES TODO****************
     }
     
     public function exitedMonitoredLocation($uuid) {
+        //get user 
         $user = User::where('uuid', '=', $uuid)->first();
-        \Artisan::queue('queue:clear', ['connection' => 'database', 'queue' => 'user'. $user->id]);   
+//        \Artisan::queue('queue:clear', ['connection' => 'database', 'queue' => 'user'. $user->id]);   
         
         //FIND USER BREAK RECORD
-        
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
         //GET JOB ID FROM USER BREAK RECORD
-        
+        $job_id = $break->job_id;
+        echo "Break exiting JOB ID IS : " . $job_id . "\n"; 
+
         //DELETE FROM JOBS TABLE WHERE ID = JOB_ID
 //         DB::delete('delete from jobs WHERE id = ?', [$job_id]);
-//        DB::delete('delete from jobs WHERE id = $job_id');
+        //DB::delete('delete from jobs WHERE id = $job_id');
+    //\App\Jobs\Job::where('id','=',$job_id)->delete();
+
+        DB::delete('delete from jobs where id = :id', ['id' => $job_id]);        
         
         return response()->json(['success' => true]);
     }
     
+    
+    //testing notfication purely from URL in browser
     public function notification() {
         
         $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');

@@ -22,9 +22,16 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+/* 
+USER ROUTES
+==================================================================
+*/
 Route::get('/api/users', 'APIController@users');
 Route::get('/api/user/{id}', 'APIController@user');
-Route::get('/api/user/{uuid}', 'APIController@findUserByUUID');
+Route::get('/api/userid/{uuid}', 'APIController@findUserByUUID');
+// add user from ios
+Route::get('/api/user/add/{uuid}', 'APIController@newUser');
+Route::get('/api/user/update/{uuid}/{device_token}', 'APIController@addDevKey');
 
 /* 
 LOCATION ROUTES

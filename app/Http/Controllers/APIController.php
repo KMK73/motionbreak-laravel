@@ -28,10 +28,32 @@ class APIController extends Controller
     
     public function findUserByUUID($uuid) {
         $user = User::where('uuid', '=', $uuid)->first();
-        return $user->id;
+        //return $user->id;
+        return response()->json($user);
     }
     
+    //create new user from ios 
+    public function newUser($uuid) {
+        $user = new User;
+        $user->uuid = $uuid; 
+        $user->save();
+                
+        return response()->json($user); 
+    }
+    
+   //update user to add device token
+    public function addDevKey($uuid, $device_token) {
+        
+        //find user break row
+        $user = User::where('uuid', '=', $uuid)->first();
+        $user->device_token = $device_token;
 
+        //update the new values
+        $user->save();
+                
+        return response()->json($user); 
+    }
+    
 /* =======================================================================
     LOCATION METHODS: 
 
@@ -179,7 +201,7 @@ COMPLETED BREAKS ROUTES TODO****************
     public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
         
         //find user break row
-        $break = UserBreak::where('user_id', '=', $user_id)->first();
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
         
         $break->user_id = $user_id;
         $break->uuid = $uuid;
@@ -215,13 +237,13 @@ COMPLETED BREAKS ROUTES TODO****************
         //UPDATE USER BREAK with job_id
         $break->job_id = $job_id;
         echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
+        $break->save();
         return response()->json(['success' => true]);
     }
     
     public function exitedMonitoredLocation($uuid) {
         //get user 
         $user = User::where('uuid', '=', $uuid)->first();
-//        \Artisan::queue('queue:clear', ['connection' => 'database', 'queue' => 'user'. $user->id]);   
         
         //FIND USER BREAK RECORD
         $break = UserBreak::where('uuid', '=', $uuid)->first();
@@ -230,10 +252,7 @@ COMPLETED BREAKS ROUTES TODO****************
         echo "Break exiting JOB ID IS : " . $job_id . "\n"; 
 
         //DELETE FROM JOBS TABLE WHERE ID = JOB_ID
-//         DB::delete('delete from jobs WHERE id = ?', [$job_id]);
-        //DB::delete('delete from jobs WHERE id = $job_id');
-    //\App\Jobs\Job::where('id','=',$job_id)->delete();
-
+        //DB is database call directly
         DB::delete('delete from jobs where id = :id', ['id' => $job_id]);        
         
         return response()->json(['success' => true]);

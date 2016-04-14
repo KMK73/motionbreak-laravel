@@ -52,12 +52,7 @@ class TestNotification extends Command
         
         echo "Looking for user ". $user_id;
         $user = User::find($user_id);
-        
-//        $users = User::all();
-//        foreach($users as $user) 
-//        {
-            //look at each user's schedule and determine their interval
-            
+
             //get uuid of user 
             $uuid = $user->uuid;
             echo "uuid ".$uuid . "\n"; 
@@ -88,8 +83,8 @@ class TestNotification extends Command
 
 
             //if current time is between start and end
-//            if ($currentTime->between($convertedStart, $convertedEnd))
-//            {
+            if ($currentTime->between($convertedStart, $convertedEnd))
+            {
                  
                 $this->info('between start and end time');
 
@@ -142,16 +137,16 @@ class TestNotification extends Command
             
                     }//end of if for completed breaks < goal breaks
                 
-               // }//end of if for between time  
+                }//end of if for between time  
             
 
-       // }//for each
         $break = UserBreak::where('uuid', '=', $uuid)->first();
         echo "Break interval is: " .$break->reminder_interval ."\n"; 
         
         //get user_id
         $user_id = $user->id; 
         echo "user_id : " . $user_id . "\n"; 
+        //create another job after the the above gets queued. this will create a never ending infinite loop. 
         $job = (new \App\Jobs\SendBreakNotification($user_id))->delay($break->reminder_interval);
         $job_id = dispatch($job);
         echo "JOB ID IS : " . $job_id . "\n";

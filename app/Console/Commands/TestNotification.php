@@ -102,8 +102,11 @@ class TestNotification extends Command
                         //check if interval is up? ***************************
                     
                     //send notification at interval from settings
-                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');
-        
+//                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');
+                        //new device key***********
+                            $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('ba62426633f4870e0579009da8ad8feb6eb485c74bf03c7dbab6f251381e6da7');
+                        
+                        
                     //with uuid from actual user(simulator device)
 //                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($user->uuid);
                     

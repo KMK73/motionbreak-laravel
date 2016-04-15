@@ -38,6 +38,15 @@ class APIController extends Controller
         $user->uuid = $uuid; 
         $user->save();
                 
+        //set break settings to default
+        $break = new UserBreak;
+        $break->user_id = $user_id;
+        $break->uuid = $uuid;
+        $break->reminder_interval = 3600;//1 hour
+        $break->break_goal = 10;
+        //update the new values
+        $break->save();
+        
         return response()->json($user); 
     }
     

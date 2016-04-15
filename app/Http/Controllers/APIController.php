@@ -40,7 +40,7 @@ class APIController extends Controller
                 
         //set break settings to default
         $break = new UserBreak;
-        $break->user_id = $user_id;
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
         $break->uuid = $uuid;
         $break->reminder_interval = 3600;//1 hour
         $break->break_goal = 10;

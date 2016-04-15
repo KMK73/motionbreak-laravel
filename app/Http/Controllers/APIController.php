@@ -169,7 +169,6 @@ movementUUID - gets all movements for that one user
     public function addCompletedMovement($user_id, $uuid,$exercise, $completed_breaks, $break_goal) {
         
         $newMovement = new CompletedMovement;
-        
         $newMovement->user_id = $user_id;
         $newMovement->uuid = $uuid;
         $newMovement->exercise = $exercise;
@@ -206,6 +205,24 @@ COMPLETED BREAKS ROUTES TODO****************
         return response()->json(array('breaks' => $breaks));
     }
 
+    //set default values 
+    public function defaultBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
+        
+        //new user break row
+        $break = new UserBreak;
+        
+        $break->user_id = $user_id;
+        $break->uuid = $uuid;
+        $break->reminder_interval = $reminder_interval;
+        $break->break_goal = $break_goal;
+        $break->start_time = $start_time;
+        $break->end_time = $end_time;
+        //update the new values
+        $break->save();
+                
+        return response()->json($break); 
+    }
+    
    //update only one row 
     public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
         

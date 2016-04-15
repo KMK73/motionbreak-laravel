@@ -68,21 +68,13 @@ Route::get('/api/completed_movement/{user_id}/{uuid}/{exercise}/{completed_break
 /* 
 COMPLETED BREAKS ROUTES TODO****************
 ==================================================================
-        Schema::create('user_breaks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('break_goal');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->integer('reminder_interval');
-            $table->integer('user_id');
-            $table->string('uuid');
-            $table->timestamps();
-        });
 */
 Route::get('/api/completed_breaks', 'APIController@getBreakSettings');
 Route::get('/api/completed_breaks/{uuid}', 'APIController@breakWithUUID');
 // update break settings
 Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@updateBreakSettings');
+// update break settings
+Route::get('/api/default_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@defaultBreakSettings');
 
 /* 
 IOS NOTIFICATION ROUTES

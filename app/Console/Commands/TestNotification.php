@@ -99,12 +99,13 @@ class TestNotification extends Command
                     if($completedBreaks < $breakGoal) 
                     {
                         $this->info('Completed break < break goal');
-                        //check if interval is up? ***************************
-                    
+
+                        //get user dev token
+                        $devKey = $user->device_token;
                     //send notification at interval from settings
 //                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');
                         //new device key***********
-                            $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('ba62426633f4870e0579009da8ad8feb6eb485c74bf03c7dbab6f251381e6da7');
+                            $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
                         
                         
                     //with uuid from actual user(simulator device)

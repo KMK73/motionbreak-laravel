@@ -110,13 +110,16 @@ locationUUID - gets all locations for that one user
     
     //finding location for monitored region check
     public function checkLocation ($uuid, $unique_id) {
-        $location = UserLocation::where('uuid', '=', $uuid)->get(); 
+        $locations = UserLocation::where('uuid', '=', $uuid)->get(); 
          
-        if ($location->find($unique_id)){
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false]);
+        foreach ($locations as $location) {
+            echo $location->unique_id;
+            if($location->unique_id == $unique_id){
+                echo "location->unique_id = " . $location->unique_id . " unique_id argument = ". $unique_id . "\n";
+                return response()->json()(['success' => true]);
+            }
         }
+        return response()->json()(['success'=>false]);
     }
 
 /* =======================================================================

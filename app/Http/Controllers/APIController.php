@@ -74,7 +74,6 @@ locationUUID - gets all locations for that one user
 */
     
     public function newLocation($uuid,$latitude, $longitude, $name, $unique_id) {
-        
         $userLocation = new UserLocation;
         $userLocation->uuid = $uuid;
         $userLocation->longitude = $longitude;
@@ -88,11 +87,8 @@ locationUUID - gets all locations for that one user
     
     //delete location passed with uuid, name, unique_id (unique to location)
     public function deleteLocation($unique_id) {
-        
 //        $location = UserLocation::find($unique_id);
         $location = UserLocation::where('unique_id', '=', $unique_id)->first();
-        
-
         //delete that location
         $location->delete(); 
         
@@ -107,10 +103,17 @@ locationUUID - gets all locations for that one user
     
     //testing with uuid WORKING
     public function locationUUID($uuid) {
-                    //Model::whereFoo('foo', '=', 'bar')->first();
         $locations = UserLocation::where('uuid', '=', $uuid)->get();
         //added key for obj c to pull
         return response()->json(array('locations' => $locations));
+    }
+    
+    //finding location for monitored region check
+    public function checkLocation ($uuid, $unique_id) {
+        $location = UserLocation::where('uuid', '=', $uuid)-get(); 
+        $location->find($unique_id); 
+        
+        return response()->json(['success' => true]);
     }
 
 /* =======================================================================

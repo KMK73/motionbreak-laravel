@@ -44,7 +44,8 @@ Route::get('/api/location/{uuid}/{latitude}/{longitude}/{name}/{unique_id}', 'AP
 
 // deleting location NOT WORKING***************
 Route::get('/api/location/delete/{unique_id}', 'APIController@deleteLocation'); 
-
+//checking if location exists for monitoring
+Route::get('/api/check_location/{uuid}/{unique_id}', 'APIController@checkLocation');
 
 /* 
 MOVEMENT ROUTES for movement list TODO****************

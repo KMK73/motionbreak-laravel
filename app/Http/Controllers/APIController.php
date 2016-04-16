@@ -115,7 +115,7 @@ locationUUID - gets all locations for that one user
         foreach ($locations as $location) {
             echo $location->unique_id;
             if($location->unique_id == $unique_id){
-                echo "location->unique_id = " . $location->unique_id . " unique_id argument = ". $unique_id . "\n";
+                echo "location->unique_id = " . $location->unique_id . "\n";
                 return response()->json()(['success' => true]);
             }
         }

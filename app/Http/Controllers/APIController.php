@@ -113,9 +113,9 @@ locationUUID - gets all locations for that one user
         $locations = UserLocation::where('uuid', '=', $uuid)->get(); 
          
         foreach ($locations as $location) {
-            echo $location->unique_id . "\n";
+          //  echo $location->unique_id . "\n";
             if($location->unique_id == $unique_id){
-                echo "location->unique_id = " . $location->unique_id . "\n";
+                //echo "location->unique_id = " . $location->unique_id . "\n";
                     return response()->json(['success' => true]);
             }
         }

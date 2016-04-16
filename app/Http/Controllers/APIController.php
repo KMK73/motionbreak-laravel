@@ -119,7 +119,7 @@ locationUUID - gets all locations for that one user
                     return response()->json(['success' => true]);
             }
         }
-        return response()->json(['success'=>false]);
+        return response()->json(['failure'=>true]);
     }
 
 /* =======================================================================

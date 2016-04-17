@@ -96,8 +96,8 @@ class TestNotification extends Command
                 echo "break goal: " . $breakGoal . "\n";
                 
                     //check if user still has breaks left under goal number
-                    if($completedBreaks < $breakGoal) 
-                    {
+//                    if($completedBreaks < $breakGoal) 
+//                    {
                         $this->info('Completed break < break goal');
 
                         //get user dev token
@@ -139,7 +139,7 @@ class TestNotification extends Command
         
                         $this->info('Notification Sent to test device');
             
-                    }//end of if for completed breaks < goal breaks
+                    //}//end of if for completed breaks < goal breaks
                 
                 }//end of if for between time  
             

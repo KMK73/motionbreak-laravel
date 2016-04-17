@@ -83,7 +83,7 @@ class TestNotification extends Command
 
 
             //if current time is between start and end
-            var_dump($currentTime->between($convertedStart, $convertedEnd)); 
+            echo ($currentTime->between($convertedStart, $convertedEnd)); 
         
 //            if ($currentTime->between($convertedStart, $convertedEnd))
 //            {

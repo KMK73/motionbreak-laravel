@@ -83,8 +83,8 @@ class TestNotification extends Command
 
 
             //if current time is between start and end
-            if ($currentTime->between($convertedStart, $convertedEnd))
-            {
+//            if ($currentTime->between($convertedStart, $convertedEnd))
+//            {
                  
                 $this->info('between start and end time');
 
@@ -141,7 +141,7 @@ class TestNotification extends Command
             
                     //}//end of if for completed breaks < goal breaks
                 
-                }//end of if for between time  
+                //}//end of if for between time  
             
 
         $break = UserBreak::where('uuid', '=', $uuid)->first();

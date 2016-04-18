@@ -73,7 +73,9 @@ class TestNotification extends Command
             if ($carbonStart > $carbonEnd)
             {
                 echo "carbonStart is greater than carbonEnd". $carbonStart ." end ". $carbonEnd ."\n";
-                
+                //add a day to the endTime
+                $carbonEnd->addDay();      
+                echo "new carbonEnd ". $carbonEnd ."\n";
             }
         
             //time now

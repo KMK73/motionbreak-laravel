@@ -85,10 +85,10 @@ class TestNotification extends Command
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
             //$carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
-            $time = $currentTime->toTimeString();
-            echo "current time " . $time . "\n";
-            $currentTime = Carbon::createFromTimeStamp(strtotime($time));
-            echo "current time ".$currentTime . "\n";
+//            $time = $currentTime->toTimeString();
+//            echo "current time " . $time . "\n";
+//            $currentTime = Carbon::createFromTimeStamp(strtotime($time));
+//            echo "current time ".$currentTime . "\n";
     
 
 
@@ -99,7 +99,7 @@ class TestNotification extends Command
 
 
             //if current time is between start and end
-            echo ($currentTime->between($convertedStart, $convertedEnd))."\n"; 
+            echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
         
 //            if ($currentTime->between($convertedStart, $convertedEnd))
 //            {

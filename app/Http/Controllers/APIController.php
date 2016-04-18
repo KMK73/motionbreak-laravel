@@ -260,7 +260,7 @@ COMPLETED BREAKS ROUTES TODO****************
         $user = User::where('uuid', '=', $uuid)->first();
         //get user_id
         $user_id = $user->id; 
-        echo "user_id : " . $user_id . "\n"; 
+        //echo "user_id : " . $user_id . "\n"; 
  
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();
@@ -271,7 +271,7 @@ COMPLETED BREAKS ROUTES TODO****************
         
         //UPDATE USER BREAK with job_id
         $break->job_id = $job_id;
-        echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
+        //echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
         $break->save();
         return response()->json(['success' => true]);
     }

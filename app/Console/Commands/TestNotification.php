@@ -62,16 +62,18 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-            //create just the time not date 
-            $carbonStart = $startTime->toTimeString();
-            $carbonEnd = $endTime->toTimeString();
-            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
+//            //create just the time not date 
+//            $carbonStart = $startTime->toTimeString();
+//            $carbonEnd = $endTime->toTimeString();
+//            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
        
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
+            $diff= $carbonStart->diffInDays($carbonEnd)
+            echo "difference ". $diff. "\n";       
 
             if ($carbonStart > $carbonEnd)
             {
@@ -84,6 +86,15 @@ class TestNotification extends Command
             //time now
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
+        
+            //check if startTime DAY is < carbonNow day, if it is then push one day farther for startTime
+            if ($carbonStart < $currentTime)
+            {
+                echo "carbonStart is less than current time". $carbonStart ." end ". $currentTime ."\n";
+                //add a day to the endTime
+                $carbonStart->addDay();      
+                echo "new carbonEnd ". $carbonEnd ."\n";
+            }
             //$carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
 //            $time = $currentTime->toTimeString();
 //            echo "current time " . $time . "\n";

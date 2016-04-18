@@ -70,7 +70,7 @@ class TestNotification extends Command
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
             echo "carbon start time " . $startTime . " carbon end time " . $endTime . "\n";
 
-            if ($carbonStart > carbonEnd)
+            if ($carbonStart > $carbonEnd)
             {
                 echo "carbonStart is greater than carbonEnd". $carbonStart ." end ". $carbonEnd ."\n";
                 

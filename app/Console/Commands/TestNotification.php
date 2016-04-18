@@ -53,10 +53,21 @@ class TestNotification extends Command
         echo "Looking for user ". $user_id;
         $user = User::find($user_id);
 
-            //get uuid of user 
-            $uuid = $user->uuid;
-            echo "uuid ".$uuid . "\n"; 
+        //get uuid of user 
+        $uuid = $user->uuid;
+        echo "uuid ".$uuid . "\n"; 
             
+        //if completed goal is less than break_goal
+        $completedBreaks = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('completed_breaks');
+        echo "completed breaks: " . $completedBreaks . "\n";
+                
+        $breakGoal = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('break_goal');
+        echo "break goal: " . $breakGoal . "\n";
+                
+        //check if user still has breaks left under goal number
+        if($completedBreaks < $breakGoal) 
+        {
+                        $this->info('Completed break < break goal');
             //***CHANGE TO UPDATED AT
             //get users start and end time matching that UUID order by desc to get last value
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
@@ -117,22 +128,11 @@ class TestNotification extends Command
             //if current time is between start and end
             echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
         
-//            if ($currentTime->between($convertedStart, $convertedEnd))
-//            {
+            if ($currentTime->between($convertedStart, $convertedEnd))
+            {
                  
                 $this->info('between start and end time');
 
-                //if completed goal is less than break_goal
-                $completedBreaks = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('completed_breaks');
-                echo "completed breaks: " . $completedBreaks . "\n";
-                
-                $breakGoal = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('break_goal');
-                echo "break goal: " . $breakGoal . "\n";
-                
-                    //check if user still has breaks left under goal number
-//                    if($completedBreaks < $breakGoal) 
-//                    {
-                        $this->info('Completed break < break goal');
 
                         //get user dev token
                         $devKey = $user->device_token;
@@ -173,9 +173,9 @@ class TestNotification extends Command
         
                         $this->info('Notification Sent to test device');
             
-                    //}//end of if for completed breaks < goal breaks
+                }//end of if for between time
                 
-                //}//end of if for between time  
+    }//end of if for completed breaks < goal breaks
             
 
         $break = UserBreak::where('uuid', '=', $uuid)->first();

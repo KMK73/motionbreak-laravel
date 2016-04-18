@@ -50,7 +50,7 @@ class TestNotification extends Command
         //To retrieve the value of an argument
         $user_id = $this->argument('user');
         
-        echo "Looking for user ". $user_id;
+        echo "Looking for user ". $user_id."\n";
         $user = User::find($user_id);
 
         //get uuid of user 
@@ -67,7 +67,7 @@ class TestNotification extends Command
         //check if user still has breaks left under goal number
         if($completedBreaks < $breakGoal) 
         {
-                        $this->info('Completed break < break goal');
+            $this->info('Completed break < break goal');
             //***CHANGE TO UPDATED AT
             //get users start and end time matching that UUID order by desc to get last value
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
@@ -124,12 +124,12 @@ class TestNotification extends Command
 //            $convertedEnd = Carbon::createFromTimeStamp(strtotime($end));
 //            echo "carbon start time " . $convertedStart . " carbon end time " . $convertedEnd . "\n";
 
-
+ 
             //if current time is between start and end
             echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
         
-            if ($currentTime->between($carbonStart, $carbonEnd))
-            {
+//            if ($currentTime->between($carbonStart, $carbonEnd))
+//            {
                  
                 $this->info('between start and end time');
 
@@ -173,7 +173,7 @@ class TestNotification extends Command
         
                         $this->info('Notification Sent to test device');
             
-                }//end of if for between time
+                //}//end of if for between time
                 
     }//end of if for completed breaks < goal breaks
             

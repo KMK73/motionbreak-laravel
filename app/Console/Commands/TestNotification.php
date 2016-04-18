@@ -128,18 +128,17 @@ class TestNotification extends Command
             //if current time is between start and end
             echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
         
-//            if ($currentTime->between($carbonStart, $carbonEnd))
-//            {
+            if ($currentTime->between($carbonStart, $carbonEnd))
+            {
                  
                 $this->info('between start and end time');
 
 
-                        //get user dev token
-                        $devKey = $user->device_token;
-                    //send notification at interval from settings
-//                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');
-                        //new device key***********
-                            $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
+                //get user dev token
+                $devKey = $user->device_token;
+                //send notification at interval from settings
+                //new device key***********
+                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
                         
                         
                     //with uuid from actual user(simulator device)
@@ -173,7 +172,7 @@ class TestNotification extends Command
         
                         $this->info('Notification Sent to test device');
             
-                //}//end of if for between time
+                }//end of if for between time
                 
     }//end of if for completed breaks < goal breaks
             

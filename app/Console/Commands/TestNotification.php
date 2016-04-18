@@ -64,11 +64,13 @@ class TestNotification extends Command
             echo "start time " . $startTime . " end time " . $endTime . "\n";
             
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
-        //addDay from carbon
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
             echo "carbon start time " . $startTime . " carbon end time " . $endTime . "\n";
+            $carbonStart->tz('UTC');
+            $carbonEnd->tz('UTC');
+            echo "carbon start time UTC " . $carbonStart . " carbon end time UTC " . $carbonEnd . "\n";
 
             if ($carbonStart > $carbonEnd)
             {
@@ -80,17 +82,13 @@ class TestNotification extends Command
         
             //time now
             $currentTime = Carbon::now();
-//            $currentTime->tz('UTC');
             echo "carbon now ". $currentTime. "\n";
             //$carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
             $time = $currentTime->toTimeString();
             echo "current time " . $time . "\n";
             $currentTime = Carbon::createFromTimeStamp(strtotime($time));
             echo "current time ".$currentTime . "\n";
-               
-
-//            $carbonStart->tz('UTC');
-//            $carbonEnd->tz('UTC');
+    
 
             //create just the time not date 
             $start = $carbonStart->toTimeString();

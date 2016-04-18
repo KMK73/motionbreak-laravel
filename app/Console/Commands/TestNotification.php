@@ -24,7 +24,7 @@ class TestNotification extends Command
      *
      * @var string
      */
-    protected $description = 'Send a Test Push Notification';
+    protected $description = 'Send a mobile Push Notification';
 
     /**
      * Create a new command instance.

@@ -273,7 +273,9 @@ COMPLETED BREAKS ROUTES TODO****************
         $break->job_id = $job_id;
         //echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
         $break->save();
-        return response()->json(['success' => true]);
+//        return response()->json(['success' => true]);
+       return response()->json($job_id);
+
     }
     
     public function exitedMonitoredLocation($uuid) {

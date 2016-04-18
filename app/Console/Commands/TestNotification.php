@@ -62,15 +62,16 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-            
+//            //create just the time not date 
+//            $carbonStart = $startTime->toTimeString();
+//            $carbonEnd = $endTime->toTimeString();
+//            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
+//        
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
-            echo "carbon start time " . $startTime . " carbon end time " . $endTime . "\n";
-            $carbonStart->tz('UTC');
-            $carbonEnd->tz('UTC');
-            echo "carbon start time UTC " . $carbonStart . " carbon end time UTC " . $carbonEnd . "\n";
+            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
 
             if ($carbonStart > $carbonEnd)
             {
@@ -90,10 +91,7 @@ class TestNotification extends Command
             echo "current time ".$currentTime . "\n";
     
 
-            //create just the time not date 
-            $start = $carbonStart->toTimeString();
-            $end = $carbonEnd->toTimeString();
-            echo "start time as string " . $start . " end time as string " . $end . "\n";
+
             //convert back to carbon
             $convertedStart = Carbon::createFromTimeStamp(strtotime($start));
             $convertedEnd = Carbon::createFromTimeStamp(strtotime($end));

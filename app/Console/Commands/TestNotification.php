@@ -92,10 +92,10 @@ class TestNotification extends Command
     
 
 
-            //convert back to carbon
-            $convertedStart = Carbon::createFromTimeStamp(strtotime($start));
-            $convertedEnd = Carbon::createFromTimeStamp(strtotime($end));
-            echo "carbon start time " . $convertedStart . " carbon end time " . $convertedEnd . "\n";
+//            //convert back to carbon
+//            $convertedStart = Carbon::createFromTimeStamp(strtotime($start));
+//            $convertedEnd = Carbon::createFromTimeStamp(strtotime($end));
+//            echo "carbon start time " . $convertedStart . " carbon end time " . $convertedEnd . "\n";
 
 
             //if current time is between start and end

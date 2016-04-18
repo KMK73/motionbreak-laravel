@@ -128,7 +128,7 @@ class TestNotification extends Command
             //if current time is between start and end
             echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
         
-            if ($currentTime->between($convertedStart, $convertedEnd))
+            if ($currentTime->between($carbonStart, $carbonEnd))
             {
                  
                 $this->info('between start and end time');

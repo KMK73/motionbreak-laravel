@@ -62,11 +62,11 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-//            //create just the time not date 
-//            $carbonStart = $startTime->toTimeString();
-//            $carbonEnd = $endTime->toTimeString();
-//            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
-//        
+            //create just the time not date 
+            $carbonStart = $startTime->toTimeString();
+            $carbonEnd = $endTime->toTimeString();
+            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
+       
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);

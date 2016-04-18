@@ -65,17 +65,19 @@ class TestNotification extends Command
             
             //time now
             $currentTime = Carbon::now();
-            $currentTime->tz('UTC');
+//            $currentTime->tz('UTC');
             echo "carbon now ". $currentTime. "\n";
-            $carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
+            //$carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
             $time = $currentTime->toTimeString();
             echo "current time " . $time . "\n";
+            $currentTime = Carbon::createFromTimeStamp(strtotime($time));
+            echo "current time ".$currentTime . "\n";
                
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
-            $carbonStart->tz('UTC');
-            $carbonEnd->tz('UTC');
+//            $carbonStart->tz('UTC');
+//            $carbonEnd->tz('UTC');
 
             //create just the time not date 
             $start = $carbonStart->toTimeString();

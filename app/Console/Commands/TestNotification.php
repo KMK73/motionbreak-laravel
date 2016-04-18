@@ -62,9 +62,11 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-
+            
             //time now
             $currentTime = Carbon::now();
+            $currentTime->tz('UTC');
+            echo "carbon now ". $currentTime. "\n";
             $carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
             $time = $currentTime->toTimeString();
             echo "current time " . $time . "\n";
@@ -72,6 +74,9 @@ class TestNotification extends Command
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+            $carbonStart->tz('UTC');
+            $carbonEnd->tz('UTC');
+
             //create just the time not date 
             $start = $carbonStart->toTimeString();
             $end = $carbonEnd->toTimeString();

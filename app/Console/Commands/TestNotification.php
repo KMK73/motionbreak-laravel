@@ -63,6 +63,13 @@ class TestNotification extends Command
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
             
+            //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
+        //addDay from carbon
+            //create the start/end in carbon objects
+            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
+            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+            echo "carbon start time " . $startTime . " carbon end time " . $endTime . "\n";
+
             //time now
             $currentTime = Carbon::now();
 //            $currentTime->tz('UTC');
@@ -73,9 +80,7 @@ class TestNotification extends Command
             $currentTime = Carbon::createFromTimeStamp(strtotime($time));
             echo "current time ".$currentTime . "\n";
                
-            //create the start/end in carbon objects
-            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
-            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+
 //            $carbonStart->tz('UTC');
 //            $carbonEnd->tz('UTC');
 

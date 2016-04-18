@@ -72,7 +72,7 @@ class TestNotification extends Command
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
-            $diff= $carbonStart->diffInDays($carbonEnd)
+            $diff= $carbonStart->diffInDays($carbonEnd);
             echo "difference ". $diff. "\n";       
 
             if ($carbonStart > $carbonEnd)

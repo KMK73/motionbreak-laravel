@@ -46,10 +46,13 @@ class ResetCompletedBreaks extends Command
      */
     public function handle()
     {
-        $movementSettings = CompletedMovement::all();
-        $movementSettings->completed_breaks = 0;
-        $movementSettings->save();
-                
+        $movements = CompletedMovement::all();
+        $completedBreaks = $movements->completed_breaks;
+        $completedBreaks = 0; 
+        $movements->save();
+
+        $this->info('completed breaks reset');        
+
         return response()->json($movementSettings); 
         
     }//end of handle function

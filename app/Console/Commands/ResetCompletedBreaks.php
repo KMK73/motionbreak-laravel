@@ -50,8 +50,7 @@ class ResetCompletedBreaks extends Command
         
         foreach($movements as $movement) 
         {
-            $completedBreaks = $movement->completed_breaks;
-            $completedBreaks = 0; 
+            $movement->completed_breaks = 0;
             $movement->save();
             echo 'Movements saving.';
         }

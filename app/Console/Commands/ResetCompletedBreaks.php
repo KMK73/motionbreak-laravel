@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\User; //user model
-use App\UserLocation; //user location model
 use App\CompletedMovement; //completed movement model
 use App\UserBreak; //user breaks model
 use App\Jobs\Job;

@@ -163,7 +163,7 @@ class TestNotification extends Command
         
                         $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
                             ->to($devices)
-                            ->send('Test notification message.');
+                            ->send('Time to get fit, take a Motion Break!');
 
                         // get response for each device push
                         foreach ($collection->pushManager as $push) {

@@ -94,6 +94,12 @@ class TestNotification extends Command
             
             echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime)."\n";
             
+            while (!$carbonStart->isSameDay($currentTime)){
+                $carbonStart->addDay();
+                echo "add day ".$carbonStart."\n";
+            }
+            $this->info('start is now same day!');
+                
             $diff = $carbonStart->diffInDays($carbonEnd);
             echo "difference ". $diff. "\n";       
              if ($carbonStart->gt($carbonEnd))

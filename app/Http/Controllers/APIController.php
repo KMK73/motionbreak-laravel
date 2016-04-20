@@ -171,11 +171,17 @@ movementUUID - gets all movements for that one user
         //added key for obj c to pull
         return response()->json(array('movements' => $movements)); 
     }
-    public function completedMovementUUID($uuid) {
-        $movements = CompletedMovement::where('uuid', '=', $uuid)->get();;
-        //filter by date
-        $movements = CompletedMovement::where('created_at', '=', Carbon::today()->toDateString());
+    public function completedMovementUUID ($uuid, $date){
+        $movements = CompletedMovement::where('uuid', '=', $uuid)->get();
+        echo "Movement " .$movements; 
         
+        //filter by date
+        foreach($movements as $movement) {
+            $movements = CompletedMovement::where('created_at', '=', $date);
+        }
+        
+        echo "Movement updated ".$movements; 
+
         return response()->json(array('movements' => $movements));
     }
     

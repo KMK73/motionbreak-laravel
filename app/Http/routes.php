@@ -87,3 +87,5 @@ Route::get('/api/test/notification', 'APIController@notification');
 Route::get('api/enter/{uuid}', 'APIController@enteredMonitoredLocation');
 //delete job_id in queue 
 Route::get('api/exit/{uuid}', 'APIController@exitedMonitoredLocation');
+//inside geofence, check if jobs exit already
+Route::get('api/current/{uuid}', 'APIController@monitorCurrentLocation');

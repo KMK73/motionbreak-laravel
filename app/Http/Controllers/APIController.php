@@ -300,6 +300,37 @@ COMPLETED BREAKS ROUTES TODO****************
         return response()->json(['success' => true]);
     }
     
+    public function monitorCurrentLocation($uuid) {
+        //using device token to look up user
+        $user = User::where('uuid', '=', $uuid)->first();
+        //get user_id
+        $user_id = $user->id; 
+
+        //check DB for any running jobs 
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        //GET JOB ID FROM USER BREAK RECORD
+        $job_id = $break->job_id;
+        echo "Current Location: JOB ID IS : " . $job_id . "\n"; 
+
+        //DELETE FROM JOBS TABLE WHERE ID = JOB_ID
+        //DB is database call directly
+        DB::delete('delete from jobs where id = :id', ['id' => $job_id]);        
+        
+        //sending first notification after a delay of interval time
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        //with reminder interval and hard coded 1 for user******
+        $job = (new SendBreakNotification($user_id))->delay($break->reminder_interval);
+        //dispatch job
+        $job_id = $this->dispatch($job);
+        
+        //UPDATE USER BREAK with job_id
+        $break->job_id = $job_id;
+        //echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
+        $break->save();
+//        return response()->json(['success' => true]);
+       return response()->json($job_id);
+
+    }
     
     //testing notfication purely from URL in browser
     public function notification() {

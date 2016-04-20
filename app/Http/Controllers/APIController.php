@@ -174,7 +174,7 @@ movementUUID - gets all movements for that one user
     public function completedMovementUUID($uuid) {
         $movements = CompletedMovement::where('uuid', '=', $uuid)->get();;
         //filter by date
-        $movements->whereDay('created_at', '=', date('d'));
+        $movements->whereDate('created_at', '=', Carbon::today()->toDateString());
         return response()->json(array('movements' => $movements));
     }
     

@@ -335,10 +335,10 @@ COMPLETED BREAKS ROUTES TODO****************
     //testing notfication purely from URL in browser
     public function notification() {
         
-        $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('3a3ad21b548f7d8c23d3baa534f7fe41bfdc28101e786b10080e0889fcf6d6bb');
+        $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('f3a0aac8edee125b9973e3b6c491258cfc669ca7d1a75ac6b55e2dd7f79ce0ac');
         
         $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
-            'badge' => 1,
+            //'badge' => 1,
             //'sound' => 'example.aiff',
 
             'actionLocKey' => 'Action button title!',

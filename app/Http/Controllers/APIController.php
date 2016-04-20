@@ -171,7 +171,7 @@ movementUUID - gets all movements for that one user
         //added key for obj c to pull
         return response()->json(array('movements' => $movements)); 
     }
-    public function completedMovementUUID ($uuid, $date){
+    public function completedMovementUUID ($uuid){
 //        $movements = CompletedMovement::where('uuid', '=', $uuid)->get();
         //echo "Movement " .$movements; 
         

@@ -61,7 +61,7 @@ COMPLETED MOVEMENT ROUTES
 ==================================================================
 */
 Route::get('/api/completed_movements', 'APIController@getAllCompletedMovements');
-Route::get('/api/completed_movements/{uuid}/{date}', 'APIController@completedMovementUUID');
+Route::get('/api/completed_movements/{uuid}', 'APIController@completedMovementUUID');
 // adding new completed movement
 //****** HOW TO ADD USER_ID FROM APP??
 Route::get('/api/completed_movement/{user_id}/{uuid}/{exercise}/{completed_breaks}/{break_goal}', 'APIController@addCompletedMovement');

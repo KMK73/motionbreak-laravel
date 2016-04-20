@@ -92,7 +92,7 @@ class TestNotification extends Command
             
             //check if its today 
             
-            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime);
+            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime)."\n";
             
             $diff = $carbonStart->diffInDays($carbonEnd);
             echo "difference ". $diff. "\n";       

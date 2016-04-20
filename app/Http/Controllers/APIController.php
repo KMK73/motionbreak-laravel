@@ -288,9 +288,7 @@ COMPLETED BREAKS ROUTES TODO****************
         $user = User::where('uuid', '=', $uuid)->first();
         
         //FIND USER BREAK RECORD
-        $break = UserBreak::where('uuid', '=', $uuid)->get();
-        echo "Break response : " . response()->json($break) . "\n"; 
-
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
         //GET JOB ID FROM USER BREAK RECORD
         $job_id = $break->job_id;
         echo "Break exiting JOB ID IS : " . $job_id . "\n"; 
@@ -309,7 +307,7 @@ COMPLETED BREAKS ROUTES TODO****************
         $user_id = $user->id; 
 
         //check DB for any running jobs 
-        $break = UserBreak::where('uuid', '=', $uuid)->get();
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
         //GET JOB ID FROM USER BREAK RECORD
         $job_id = $break->job_id;
         echo "Current Location: JOB ID IS : " . $job_id . "\n"; 

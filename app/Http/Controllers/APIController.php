@@ -176,9 +176,9 @@ movementUUID - gets all movements for that one user
         //echo "Movement " .$movements; 
         
         //filter by date
-        foreach($movements as $movement) {
-            $movements = CompletedMovement::where('created_at', '=', $date);
-        }
+//        foreach($movements as $movement) {
+            $movements = CompletedMovement::where('created_at', '=', $date)->get();
+        //}
         
         //echo "Movement updated ".$movements; 
 

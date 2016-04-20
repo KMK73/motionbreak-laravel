@@ -341,11 +341,11 @@ COMPLETED BREAKS ROUTES TODO****************
             //'badge' => 1,
             //'sound' => 'example.aiff',
 
-            'actionLocKey' => 'Action button title!',
-            'locKey' => 'localized key', //seems to be the message text
+            'actionLocKey' => 'to take a Motion Break!',
+            'locKey' => 'Time to get fit. Take a motion break!', //seems to be the message text
             'locArgs' => array(
-                'localized test arg',
-                'localized args',
+                'Testing action arg 1',
+                'Testing action arg 2',
             ),
             //'launchImage' => 'image.jpg',
 

@@ -75,11 +75,7 @@ class TestNotification extends Command
             echo "start time " . $startTime . " end time " . $endTime . "\n";
 //        $result = $date->format('Y-m-d H:i:s');
 
-//            //create just the time not date 
-//            $carbonStart = $startTime->toTimeString();
-//            $carbonEnd = $endTime->toTimeString();
-//            echo "start time as string " . $carbonStart . " end time as string " . $carbonEnd . "\n";
-//       
+    
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
@@ -90,55 +86,29 @@ class TestNotification extends Command
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
             
-            //check if its today 
-            
-            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime)."\n";
-            if (!$carbonStart->isSameDay($currentTime)) {
-                while (!$carbonStart->isSameDay($currentTime)){
-                    $carbonStart->addDay();
-                    echo "add day ".$carbonStart."\n";
-                }
-                $this->info('start is now same day!');
-                }
-            else {
-                $this->info('start and end are already on the same day');
-            }
-            $diff = $carbonStart->diffInDays($carbonEnd);
-            echo "difference ". $diff. "\n";       
-             if ($carbonStart->gt($carbonEnd))
-//            if ($carbonStart > $carbonEnd)
-            {
-                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
-                //add a day to the endTime
-                $carbonEnd->addDay();      
-                echo "new carbonEnd ". $carbonEnd ."\n";
-            }
-        
-
-        
-//            //check if startTime DAY is < carbonNow day, if it is then push one day farther for startTime
-//            if ($carbonStart < $currentTime)
+//            //check if its today 
+//            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime)."\n";
+//            if (!$carbonStart->isSameDay($currentTime)) {
+//                while (!$carbonStart->isSameDay($currentTime)){
+//                    $carbonStart->addDay();
+//                    echo "add day ".$carbonStart."\n";
+//                }
+//                $this->info('start is now same day!');
+//                }
+//            else {
+//                $this->info('start and end are already on the same day');
+//            }
+//            $diff = $carbonStart->diffInDays($carbonEnd);
+//            echo "difference ". $diff. "\n";       
+//             if ($carbonStart->gt($carbonEnd))
+////            if ($carbonStart > $carbonEnd)
 //            {
-//                $diff = $carbonStart->diffInDays($currentTime);
-//                echo "difference ". $diff. "\n";  
-//                echo "carbonStart is less than current time". $carbonStart ." end ". $currentTime ."\n";
+//                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
 //                //add a day to the endTime
-//                $carbonStart->addDay();      
+//                $carbonEnd->addDay();      
 //                echo "new carbonEnd ". $carbonEnd ."\n";
 //            }
-            //$carbonCurrent = Carbon::createFromFormat('Y-m-d H:i:s', $currentTime);
-//            $time = $currentTime->toTimeString();
-//            echo "current time " . $time . "\n";
-//            $currentTime = Carbon::createFromTimeStamp(strtotime($time));
-//            echo "current time ".$currentTime . "\n";
     
-
-
-//            //convert back to carbon
-//            $convertedStart = Carbon::createFromTimeStamp(strtotime($start));
-//            $convertedEnd = Carbon::createFromTimeStamp(strtotime($end));
-//            echo "carbon start time " . $convertedStart . " carbon end time " . $convertedEnd . "\n";
-
  
             //if current time is between start and end
             echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
@@ -207,9 +177,7 @@ class TestNotification extends Command
         $break->job_id = $job_id;
         //update the new values
         $break->save();
-        
-        $carbonStart->addDay(5);
-        echo "new start time ".$carbonStart."\n";
+
         
     }//end of handle function
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB; //to be able to access database for jobs table
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\User; //user model
 use App\UserLocation; //user location model
@@ -172,6 +173,8 @@ movementUUID - gets all movements for that one user
     }
     public function completedMovementUUID($uuid) {
         $movements = CompletedMovement::where('uuid', '=', $uuid)->get();;
+        //filter by date
+        $movements->whereDay('created_at', '=', date('d'));
         return response()->json(array('movements' => $movements));
     }
     

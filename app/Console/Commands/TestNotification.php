@@ -209,6 +209,7 @@ class TestNotification extends Command
         $break->save();
         
         $carbonStart->addDay(5);
+        echo "new start time ".$carbonStart."\n";
         
     }//end of handle function
 }

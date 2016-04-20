@@ -184,7 +184,7 @@ movementUUID - gets all movements for that one user
 
        $movements = DB::table('completed_movements')
                     ->where('uuid', '=', $uuid)
-                    ->whereDate('created_at', '=', date('Y-m-d'));
+                    ->whereDate('created_at', '=', date('Y-m-d'))
                     ->get();
         
         return response()->json(array('movements' => $movements));

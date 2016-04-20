@@ -173,14 +173,14 @@ movementUUID - gets all movements for that one user
     }
     public function completedMovementUUID ($uuid, $date){
         $movements = CompletedMovement::where('uuid', '=', $uuid)->get();
-        echo "Movement " .$movements; 
+        //echo "Movement " .$movements; 
         
         //filter by date
         foreach($movements as $movement) {
             $movements = CompletedMovement::where('created_at', '=', $date);
         }
         
-        echo "Movement updated ".$movements; 
+        //echo "Movement updated ".$movements; 
 
         return response()->json(array('movements' => $movements));
     }

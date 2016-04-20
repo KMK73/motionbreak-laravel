@@ -86,10 +86,18 @@ class TestNotification extends Command
             $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
             
+            //time now
+            $currentTime = Carbon::now();
+            echo "carbon now ". $currentTime. "\n";
+            
+            //check if its today 
+            
+            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime);
+            
             $diff = $carbonStart->diffInDays($carbonEnd);
             echo "difference ". $diff. "\n";       
-
-            if ($carbonStart > $carbonEnd)
+             if ($carbonStart->gt($carbonEnd))
+//            if ($carbonStart > $carbonEnd)
             {
                 echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
                 //add a day to the endTime
@@ -97,9 +105,7 @@ class TestNotification extends Command
                 echo "new carbonEnd ". $carbonEnd ."\n";
             }
         
-            //time now
-            $currentTime = Carbon::now();
-            echo "carbon now ". $currentTime. "\n";
+
         
 //            //check if startTime DAY is < carbonNow day, if it is then push one day farther for startTime
 //            if ($carbonStart < $currentTime)

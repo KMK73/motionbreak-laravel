@@ -182,8 +182,7 @@ movementUUID - gets all movements for that one user
         
         //echo "Movement updated ".$movements; 
 
-       $movements = DB::table('completed_movements')
-                    ->where('uuid', '=', $uuid)
+       $movements = CompletedMovement::where('uuid', '=', $uuid)
                     ->whereDate('created_at', '=', date('Y-m-d'))
                     ->get();
         

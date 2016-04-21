@@ -263,6 +263,17 @@ COMPLETED BREAKS ROUTES TODO****************
     public function enteredMonitoredLocation($uuid) {
         //using device token to look up user
         $user = User::where('uuid', '=', $uuid)->first();
+        
+        //delete any job that may still be in the queue
+        //FIND USER BREAK RECORD
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        //GET JOB ID FROM USER BREAK RECORD
+        $job_id = $break->job_id;
+        echo "Break exiting JOB ID IS : " . $job_id . "\n"; 
+        //DELETE FROM JOBS TABLE WHERE ID = JOB_ID
+        //DB is database call directly
+        DB::delete('delete from jobs where id = :id', ['id' => $job_id]);   
+        
         //get user_id
         $user_id = $user->id; 
         //echo "user_id : " . $user_id . "\n"; 

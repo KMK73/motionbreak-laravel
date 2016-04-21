@@ -89,7 +89,7 @@ class TestNotification extends Command
             $currentTime = Carbon::now();
             //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
             echo "carbon now ". $currentTime. "\n";
-            $currentTime = Carbon::now($timezoneDiff);
+            $newCurrentTime = Carbon::now($timezoneDiff);
             echo "carbon now timezone ". $carbon. "\n";
 
             

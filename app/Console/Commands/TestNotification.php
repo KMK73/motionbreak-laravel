@@ -72,46 +72,21 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-//        $result = $date->format('Y-m-d H:i:s');
-
     
+            //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
+            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
+            echo "Timezone difference ".$timezoneDiff. "\n";
+            
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
-            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
-            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime, $timezoneDiff);
+            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime, $timezoneDiff);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
             
             //time now
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
             
-//            //check if its today 
-//            echo "carbon day vs start time ".$carbonStart->isSameDay($currentTime)."\n";
-//            if (!$carbonStart->isSameDay($currentTime)) {
-//                while (!$carbonStart->isSameDay($currentTime)){
-//                    $carbonStart->addDay();
-//                    echo "add day ".$carbonStart."\n";
-//                }
-//                $this->info('start is now same day!');
-//                }
-//            else {
-//                $this->info('start and end are already on the same day');
-//            }
-//            $diff = $carbonStart->diffInDays($carbonEnd);
-//            echo "difference ". $diff. "\n";       
-             if ($carbonStart->gt($carbonEnd))
-            {
-                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
-                //add a day to the endTime
-                $carbonEnd->addDay();      
-                echo "new carbonEnd ". $carbonEnd ."\n";
-            }
-    
- 
-            //if current time is between start and end
-//            echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
-//            echo "between bool ".($currentTime->between($startTime, $endTime))."\n"; 
-        
             if ($currentTime->between($carbonStart, $carbonEnd))
             //if ($currentTime->between($startTime, $endTime))
             {

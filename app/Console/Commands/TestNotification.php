@@ -68,7 +68,6 @@ class TestNotification extends Command
         if($completedBreaks < $breakGoal) 
         {
             $this->info('Completed break < break goal');
-            //***CHANGE TO UPDATED AT
             //get users start and end time matching that UUID order by desc to get last value
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
@@ -78,10 +77,10 @@ class TestNotification extends Command
     
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
-            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
-            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
-            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
-            
+//            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
+//            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+//            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
+//            
             //time now
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
@@ -101,7 +100,6 @@ class TestNotification extends Command
 //            $diff = $carbonStart->diffInDays($carbonEnd);
 //            echo "difference ". $diff. "\n";       
 //             if ($carbonStart->gt($carbonEnd))
-////            if ($carbonStart > $carbonEnd)
 //            {
 //                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
 //                //add a day to the endTime
@@ -111,9 +109,11 @@ class TestNotification extends Command
     
  
             //if current time is between start and end
-            echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
+//            echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
+            echo "between bool ".($currentTime->between($startTime, $endTime))."\n"; 
         
-            if ($currentTime->between($carbonStart, $carbonEnd))
+//            if ($currentTime->between($carbonStart, $carbonEnd))
+            if ($currentTime->between($startTime, $endTime))
             {
                  
                 $this->info('between start and end time');

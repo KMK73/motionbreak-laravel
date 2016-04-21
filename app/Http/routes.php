@@ -69,7 +69,7 @@ COMPLETED BREAKS ROUTES TODO****************
 Route::get('/api/completed_breaks', 'APIController@getBreakSettings');
 Route::get('/api/completed_breaks/{uuid}', 'APIController@breakWithUUID');
 // update break settings
-Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@updateBreakSettings');
+Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{timezone}/{start_time}/{end_time}', 'APIController@updateBreakSettings');
 // update break settings
 Route::get('/api/default_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@defaultBreakSettings');
 

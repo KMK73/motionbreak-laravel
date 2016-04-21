@@ -238,7 +238,7 @@ COMPLETED BREAKS ROUTES TODO****************
     }
     
    //update only one row 
-    public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
+    public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal,$timezone, $start_time, $end_time) {
         
         //find user break row
         $break = UserBreak::where('uuid', '=', $uuid)->first();
@@ -246,6 +246,7 @@ COMPLETED BREAKS ROUTES TODO****************
         $break->user_id = $user_id;
         $break->uuid = $uuid;
         $break->reminder_interval = $reminder_interval;
+        $break->timezone = $timezone;
         $break->break_goal = $break_goal;
         $break->start_time = $start_time;
         $break->end_time = $end_time;

@@ -72,7 +72,7 @@ class TestNotification extends Command
             $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
             $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
             echo "start time " . $startTime . " end time " . $endTime . "\n";
-    
+                
             //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
             $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
             echo "Timezone difference ".$timezoneDiff. "\n";
@@ -82,6 +82,18 @@ class TestNotification extends Command
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
+            
+            //***if time is 00:00 to 05:00 for end time make it next day
+//            $minTime = Carbon::createFromTime($hour, $minute, $second, $tz);
+
+            if ($carbonEnd->lte($carbonStart)){
+                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
+                $carbonEnd->addDay();
+                echo "new end time .". $carbonEnd;
+            }         
+
+            
+            
 //            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
 //            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
 //            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";

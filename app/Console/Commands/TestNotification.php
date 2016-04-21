@@ -82,12 +82,14 @@ class TestNotification extends Command
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
-            
+            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
+            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
+            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";
             //time now
-            $currentTime = Carbon::now();
+            //$currentTime = Carbon::now();
             //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
-            echo "carbon now ". $currentTime. "\n";
-            $carbon = Carbon::now($timezoneDiff);
+            //echo "carbon now ". $currentTime. "\n";
+            $currentTime = Carbon::now($timezoneDiff);
             echo "carbon now timezone ". $carbon. "\n";
 
             

@@ -77,10 +77,10 @@ class TestNotification extends Command
     
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
-//            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
-//            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
-//            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
-//            
+            $carbonStart = Carbon::createFromFormat('Y-m-d H:i:s', $startTime);
+            $carbonEnd = Carbon::createFromFormat('Y-m-d H:i:s', $endTime);
+            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
+            
             //time now
             $currentTime = Carbon::now();
             echo "carbon now ". $currentTime. "\n";
@@ -99,65 +99,65 @@ class TestNotification extends Command
 //            }
 //            $diff = $carbonStart->diffInDays($carbonEnd);
 //            echo "difference ". $diff. "\n";       
-//             if ($carbonStart->gt($carbonEnd))
-//            {
-//                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
-//                //add a day to the endTime
-//                $carbonEnd->addDay();      
-//                echo "new carbonEnd ". $carbonEnd ."\n";
-//            }
+             if ($carbonStart->gt($carbonEnd))
+            {
+                echo "carbonStart is greater than carbonEnd in days : ". $carbonStart ." end ". $carbonEnd ."\n";
+                //add a day to the endTime
+                $carbonEnd->addDay();      
+                echo "new carbonEnd ". $carbonEnd ."\n";
+            }
     
  
             //if current time is between start and end
 //            echo "between bool ".($currentTime->between($carbonStart, $carbonEnd))."\n"; 
 //            echo "between bool ".($currentTime->between($startTime, $endTime))."\n"; 
         
-//            if ($currentTime->between($carbonStart, $carbonEnd))
-//            if ($currentTime->between($startTime, $endTime))
-//            {
+            if ($currentTime->between($carbonStart, $carbonEnd))
+            //if ($currentTime->between($startTime, $endTime))
+            {
                  
-                //$this->info('between start and end time');
+                $this->info('between start and end time');
 
 
-//                //get user dev token
-//                $devKey = $user->device_token;
-//                //send notification at interval from settings
-//                //new device key***********
-//                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
-//                        
-//                        
-//                    //with uuid from actual user(simulator device)
-////                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($user->uuid);
-//                    
-//                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
-//                    //'badge' => 1,
-//                    //'sound' => 'example.aiff',
-//
-//                    'actionLocKey' => 'take a Motion Break.',
-//                    'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
-//                    //'locArgs' => array(
-//                    //'localized test arg',
-//                    //'localized args',
-//                    //),
-//                    //'launchImage' => 'image.jpg',
-//
-////                        'custom' => array('custom data' => array(
-////                            'we' => 'want', 'send to app'
-////                        ))
-//                    ));
-//        
-//                        $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
-//                            ->to($devices)
-//                            ->send($message);
-//
-//                        // get response for each device push
-//                        foreach ($collection->pushManager as $push) {
-//                            $response = $push->getAdapter()->getResponse();
-//                        }
-//        
-//                        $this->info('Notification Sent to test device');
-//            
-//                }//end of if for between time
+                //get user dev token
+                $devKey = $user->device_token;
+                //send notification at interval from settings
+                //new device key***********
+                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
+                        
+                        
+                    //with uuid from actual user(simulator device)
+//                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($user->uuid);
+                    
+                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
+                    //'badge' => 1,
+                    //'sound' => 'example.aiff',
+
+                    'actionLocKey' => 'take a Motion Break.',
+                    'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
+                    //'locArgs' => array(
+                    //'localized test arg',
+                    //'localized args',
+                    //),
+                    //'launchImage' => 'image.jpg',
+
+//                        'custom' => array('custom data' => array(
+//                            'we' => 'want', 'send to app'
+//                        ))
+                    ));
+        
+                        $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
+                            ->to($devices)
+                            ->send($message);
+
+                        // get response for each device push
+                        foreach ($collection->pushManager as $push) {
+                            $response = $push->getAdapter()->getResponse();
+                        }
+        
+                        $this->info('Notification Sent to test device');
+            
+                }//end of if for between time
                 
     }//end of if for completed breaks < goal breaks
             

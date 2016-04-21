@@ -82,22 +82,23 @@ class TestNotification extends Command
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
-            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
-            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
-            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";
+//            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
+//            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
+//            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";
             //time now
-            //$currentTime = Carbon::now();
+            $currentTime = Carbon::now();
             //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
-            //echo "carbon now ". $currentTime. "\n";
+            echo "carbon now ". $currentTime. "\n";
             $currentTime = Carbon::now($timezoneDiff);
             echo "carbon now timezone ". $carbon. "\n";
 
             
-//            if ($currentTime->between($carbonStart, $carbonEnd))
+            if ($currentTime->between($carbonStart, $carbonEnd))
+            {
 //            //if ($currentTime->between($startTime, $endTime))
 //            {
 //                 
-//                $this->info('between start and end time');
+                $this->info('between start and end time');
 //
 //
 //                //get user dev token
@@ -138,7 +139,7 @@ class TestNotification extends Command
 //        
 //                        $this->info('Notification Sent to test device');
 //            
-//                }//end of if for between time
+                }//end of if for between time
                 
     }//end of if for completed breaks < goal breaks
             

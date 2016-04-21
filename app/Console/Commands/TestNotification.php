@@ -89,11 +89,9 @@ class TestNotification extends Command
             if ($carbonEnd->lte($carbonStart)){
                 echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
                 $carbonEnd->addDay();
-                echo "new end time .". $carbonEnd;
-            }         
+                echo "new end time .". $carbonEnd. "\n";
+            }
 
-            
-            
 //            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
 //            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
 //            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";
@@ -106,71 +104,64 @@ class TestNotification extends Command
 
             
             if ($currentTime->between($carbonStart, $carbonEnd))
-            {
-//            //if ($currentTime->between($startTime, $endTime))
-//            {
-//                 
+            {               
                 $this->info('between start and end time');
-//
-//
-//                //get user dev token
-//                $devKey = $user->device_token;
-//                //send notification at interval from settings
-//                //new device key***********
-//                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
-//                        
-//                        
-//                    //with uuid from actual user(simulator device)
-////                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($user->uuid);
-//                    
-//                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
-//                    //'badge' => 1,
-//                    //'sound' => 'example.aiff',
-//
-//                    'actionLocKey' => 'take a Motion Break.',
-//                    'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
-//                    //'locArgs' => array(
-//                    //'localized test arg',
-//                    //'localized args',
-//                    //),
-//                    //'launchImage' => 'image.jpg',
-//
-////                        'custom' => array('custom data' => array(
-////                            'we' => 'want', 'send to app'
-////                        ))
-//                    ));
-//        
-//                        $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
-//                            ->to($devices)
-//                            ->send($message);
-//
-//                        // get response for each device push
-//                        foreach ($collection->pushManager as $push) {
-//                            $response = $push->getAdapter()->getResponse();
-//                        }
-//        
-//                        $this->info('Notification Sent to test device');
-//            
-                }//end of if for between time
+
+
+                //get user dev token
+                $devKey = $user->device_token;
+                //send notification at interval from settings
+                //new device key***********
+                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
+                    
+                $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
+                //'badge' => 1,
+                //'sound' => 'example.aiff',
+
+                'actionLocKey' => 'take a Motion Break.',
+                'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
+                //'locArgs' => array(
+                //'localized test arg',
+                //'localized args',
+                //),
+                //'launchImage' => 'image.jpg',
+
+//                        'custom' => array('custom data' => array(
+//                            'we' => 'want', 'send to app'
+//                        ))
+                ));
+
+                $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
+                    ->to($devices)
+                     ->send($message);
+
+                    // get response for each device push
+                    foreach ($collection->pushManager as $push) {
+                        $response = $push->getAdapter()->getResponse();
+                    }
+
+                 $this->info('Notification Sent to test device');
+            
+        }//end of if for between time
                 
     }//end of if for completed breaks < goal breaks
             
 
-        $break = UserBreak::where('uuid', '=', $uuid)->first();
-        echo "Break interval is: " .$break->reminder_interval ."\n"; 
-        
-        //get user_id
-        $user_id = $user->id; 
-        echo "user_id : " . $user_id . "\n"; 
-        //create another job after the the above gets queued. this will create a never ending infinite loop. 
-        $job = (new \App\Jobs\SendBreakNotification($user_id))->delay($break->reminder_interval);
-        $job_id = dispatch($job);
-        echo "JOB ID IS : " . $job_id . "\n";
-                
-        //UPDATE USER BREAK with new job_id
-        $break->job_id = $job_id;
-        //update the new values
-        $break->save();
+    $break = UserBreak::where('uuid', '=', $uuid)->first();
+    echo "Break interval is: " .$break->reminder_interval ."\n"; 
+
+    //get user_id
+    $user_id = $user->id; 
+    echo "user_id : " . $user_id . "\n"; 
+    //create another job after the the above gets queued. this will create a never ending infinite loop. 
+    $job = (new \App\Jobs\SendBreakNotification($user_id))->delay($break->reminder_interval);
+    $job_id = dispatch($job);
+    echo "JOB ID IS : " . $job_id . "\n";
+
+    //UPDATE USER BREAK with new job_id
+    $break->job_id = $job_id;
+    //update the new values
+    $break->save();
 
         
     }//end of handle function

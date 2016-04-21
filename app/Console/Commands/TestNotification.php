@@ -80,13 +80,12 @@ class TestNotification extends Command
             //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
             //create the start/end in carbon objects
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
-//            $carbonStart-
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
             
             //time now
             $currentTime = Carbon::now();
-            $currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
+            //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
             echo "carbon now ". $currentTime. "\n";
             $carbon = Carbon::now($timezoneDiff);
             echo "carbon now timezone ". $carbon. "\n";

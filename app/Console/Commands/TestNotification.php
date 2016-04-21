@@ -84,8 +84,8 @@ class TestNotification extends Command
 //            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
             
             //time now
-            $currentTime = Carbon::now();
-            echo "carbon now ". $currentTime. "\n";
+//            $currentTime = Carbon::now();
+//            echo "carbon now ". $currentTime. "\n";
             
 //            if ($currentTime->between($carbonStart, $carbonEnd))
 //            //if ($currentTime->between($startTime, $endTime))

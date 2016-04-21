@@ -129,26 +129,26 @@ class TestNotification extends Command
                     //with uuid from actual user(simulator device)
 //                    $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($user->uuid);
                     
-//                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
-//                    'badge' => 1,
-//                    //'sound' => 'example.aiff',
-//
-//                    'actionLocKey' => 'Action button title!',
-//                    'locKey' => 'Testing notification system', //seems to be the message text
-//                    'locArgs' => array(
-//                    'localized test arg',
-//                    'localized args',
-//                    ),
-//                    //'launchImage' => 'image.jpg',
-//
+                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
+                    //'badge' => 1,
+                    //'sound' => 'example.aiff',
+
+                    'actionLocKey' => 'take a Motion Break.',
+                    'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
+                    //'locArgs' => array(
+                    //'localized test arg',
+                    //'localized args',
+                    //),
+                    //'launchImage' => 'image.jpg',
+
 //                        'custom' => array('custom data' => array(
 //                            'we' => 'want', 'send to app'
 //                        ))
-//                    ));
+                    ));
         
                         $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
                             ->to($devices)
-                            ->send('Time to get fit, take a Motion Break!');
+                            ->send($message);
 
                         // get response for each device push
                         foreach ($collection->pushManager as $push) {

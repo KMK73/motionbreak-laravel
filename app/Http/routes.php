@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('user/{id}', function ($id) {
-//    return 'User '.$id;
-//});
-
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

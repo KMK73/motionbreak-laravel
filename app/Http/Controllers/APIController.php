@@ -220,7 +220,7 @@ COMPLETED BREAKS ROUTES TODO****************
     }
 
     
-    public function testTime($user_id) {
+    public function testTime($user_id, $hour, $minute) {
         $data = array();
         $user = User::find($user_id);
 
@@ -262,7 +262,8 @@ COMPLETED BREAKS ROUTES TODO****************
                 $data["shift_end"] = false;
             }
             //time now
-            $currentTime = Carbon::now();
+//            $currentTime = Carbon::now();
+            $currentTime = Carbon::createFromTime($hour, $minute, 0);
             $data["current_time"] = $currentTime;
             
             if ($currentTime->between($carbonStart, $carbonEnd))

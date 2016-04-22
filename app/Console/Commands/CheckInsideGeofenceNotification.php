@@ -39,7 +39,8 @@ class CheckInsideGeofenceNotification extends Command
      */
     public function handle()
     {
-         //To retrieve the value of an argument
+ 
+        //To retrieve the value of an argument
         $user_id = $this->argument('user');
         
         echo "Looking for user ". $user_id."\n";
@@ -75,7 +76,7 @@ class CheckInsideGeofenceNotification extends Command
                 $response = $push->getAdapter()->getResponse();
             }
         
-            $job = (new \App\Jobs\CheckInsideGeofenceNotification($user_id))->delay(1200);
+            $job = (new \App\Jobs\TestHourly($user_id))->delay(1200);
             $job_id = dispatch($job);
             echo "JOB ID IS : " . $job_id . "\n";
     }

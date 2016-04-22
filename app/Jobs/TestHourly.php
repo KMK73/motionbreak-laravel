@@ -12,7 +12,8 @@ use App\User;
 class TestHourly extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
-
+    
+    public $user_id; 
     /**
      * Create a new job instance.
      *

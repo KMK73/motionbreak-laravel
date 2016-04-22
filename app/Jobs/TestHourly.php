@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use App\User;
 
-class TestHourly extends Job implements ShouldQueue
+class TestHourly extends Job implements ShouldQueue, SelfHandling
 {
     use InteractsWithQueue, SerializesModels;
     

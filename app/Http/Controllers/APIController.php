@@ -219,6 +219,65 @@ COMPLETED BREAKS ROUTES TODO****************
         return response()->json(array('breaks' => $breaks));
     }
 
+    
+    public function testTime($user_id) {
+        $data = array();
+        $user = User::find($user_id);
+
+        //get uuid of user 
+        $uuid = $user->uuid;
+        $data["user"] = $uuid;
+        $completedBreaks = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('completed_breaks');
+        $data["breaks"] = $completedBreaks;
+        $breakGoal = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('break_goal');
+        $data["goal"] = $breakGoal;
+                
+        //check if user still has breaks left under goal number
+        if($completedBreaks < $breakGoal) 
+        {
+            $data["hasBreaks"] = true;
+            //get users start and end time matching that UUID order by desc to get last value
+            $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
+            $data["start"] = $startTime;
+            $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
+            $data["end"] = $endTime;
+                
+            //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
+            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
+            $data["tz"] = $timezoneDiff;
+            //create carbon objects
+            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
+            $data["start_carbon"] = $carbonStart;
+            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
+            $data["end_carbon"] = $carbonEnd;
+            
+            //***if time is 00:00 to 05:00 for end time make it next day
+            //if End time is less than start time then add a day
+            if ($carbonEnd->lte($carbonStart)){
+                $carbonEnd->addDay();
+                $data["shift_end"] = true;
+                $data["shifted_time"] = $carbonEnd;
+            }
+            else {
+                $data["shift_end"] = false;
+            }
+            //time now
+            $currentTime = Carbon::now();
+            $data["current_time"] = $currentTime;
+            
+            if ($currentTime->between($carbonStart, $carbonEnd))
+            {               
+                $data["is_between"] = true;
+            }
+            else {
+                $data["is_between"] = false;
+            }
+        }
+        else {
+            $data["hasBreaks"] = false;
+        }
+        return response()->json($data); 
+    }
     //set default values 
     public function defaultBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
         

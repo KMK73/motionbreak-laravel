@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::auth();
-
+Route::get('/test/{user_id}', 'APIController@testTime');
 Route::get('/home', 'HomeController@index');
 /* 
 USER ROUTES

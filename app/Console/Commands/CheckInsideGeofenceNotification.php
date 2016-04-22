@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\User; //user model
+use App\Jobs\Job;
 
 class CheckInsideGeofenceNotification extends Command
 {
@@ -76,6 +78,6 @@ class CheckInsideGeofenceNotification extends Command
             $job = (new \App\Jobs\CheckInsideGeofenceNotification($user_id))->delay(1200);
             $job_id = dispatch($job);
             echo "JOB ID IS : " . $job_id . "\n";
-        }
     }
+}
 

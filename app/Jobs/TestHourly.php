@@ -32,6 +32,6 @@ class TestHourly extends Job implements ShouldQueue
     {
         //queue the job with this user id    
         \Artisan::queue('test:hourly', [
-            'user' => $this->user_id]);
+            'user' => 18]);
     }
 }

@@ -19,7 +19,7 @@ class TestHourly extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user_id)
     {
         ////pass in the user that launched this job through the controller
         $this->user_id = $user_id; 

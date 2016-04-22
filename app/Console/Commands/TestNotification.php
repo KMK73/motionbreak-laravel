@@ -76,32 +76,24 @@ class TestNotification extends Command
             //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
             $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
             echo "Timezone difference ".$timezoneDiff. "\n";
-            
-            //check if end is < than start (day is day before etc), if it is then push one day farther for endTime
-            //create the start/end in carbon objects
+            //create carbon objects
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
             echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
             
             //***if time is 00:00 to 05:00 for end time make it next day
-//            $minTime = Carbon::createFromTime($hour, $minute, $second, $tz);
-
-            if ($carbonEnd->lte($carbonStart)){
-                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
-                $carbonEnd->addDay();
-                echo "new end time .". $carbonEnd. "\n";
-            }
-
-//            $carbonStart = Carbon::createFromTime($carbonStart,$timezoneDiff );
-//            $carbonEnd = Carbon::createFromTime($carbonEnd,$timezoneDiff);
-//            echo "new carbon start time " . $carbonStart . " new carbon end time " . $carbonEnd . "\n";
+            //if End time is less than start time then add a day
+//            if ($carbonEnd->lte($carbonStart)){
+//                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
+//                $carbonEnd->addDay();
+//                echo "new end time .". $carbonEnd. "\n";
+//            }
             //time now
             $currentTime = Carbon::now();
             //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
             echo "carbon now ". $currentTime. "\n";
 //            $newCurrentTime = Carbon::now($timezoneDiff);
 //            echo "carbon now timezone ". $carbon. "\n";
-
             
             if ($currentTime->between($carbonStart, $carbonEnd))
             {               

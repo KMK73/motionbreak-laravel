@@ -76,7 +76,7 @@ class CheckInsideGeofenceNotification extends Command
                 $response = $push->getAdapter()->getResponse();
             }
         
-            $job = (new \App\Jobs\TestHourly($user_id))->delay(1200);
+            $job = (new \App\Jobs\TestHourly($user_id))->delay(3600);
             $job_id = dispatch($job);
             echo "JOB ID IS : " . $job_id . "\n";
     }

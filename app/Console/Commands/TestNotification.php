@@ -83,11 +83,11 @@ class TestNotification extends Command
             
             //***if time is 00:00 to 05:00 for end time make it next day
             //if End time is less than start time then add a day
-//            if ($carbonEnd->lte($carbonStart)){
-//                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
-//                $carbonEnd->addDay();
-//                echo "new end time .". $carbonEnd. "\n";
-//            }
+            if ($carbonEnd->lte($carbonStart)){
+                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
+                $carbonEnd->addDay();
+                echo "new end time .". $carbonEnd. "\n";
+            }
             //time now
             $currentTime = Carbon::now();
             //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);

@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         Commands\TestNotification::class,
-        Commands\ResetCompletedBreaks::class,
+        Commands\ResetCompletedBreaks::class,        Commands\CheckInsideGeofenceNotification::class,
     ];
 
     /**

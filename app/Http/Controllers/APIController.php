@@ -435,22 +435,23 @@ COMPLETED BREAKS ROUTES TODO****************
             $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
             $data["tz"] = $timezoneDiff;
             //create carbon objects
-            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
+            $timezoneName = Carbon::now($timezoneDiff->tzName);
+            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
             $data["start_carbon"] = $carbonStart;
-            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
+            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $timezoneName);
             $data["end_carbon"] = $carbonEnd;
             
-            //***if time is 00:00 to 12:00 for start time make it previous day
-            $minStart = Carbon::createFromTime(0, 0, 0); 
-            $maxStart = Carbon::createFromTime(12, 0, 0);
-            if ($carbonStart->between($minStart,$maxStart)){
-                $carbonStart->subDay();
-                $data["shift_start"] = true;
-                $data["shifted_start"] = $carbonStart;
-            }
-            else {
-                $data["shift_start"] = false;
-            }
+//            //***if time is 00:00 to 12:00 for start time make it previous day
+//            $minStart = Carbon::createFromTime(0, 0, 0); 
+//            $maxStart = Carbon::createFromTime(12, 0, 0);
+//            if ($carbonStart->between($minStart,$maxStart)){
+//                $carbonStart->subDay();
+//                $data["shift_start"] = true;
+//                $data["shifted_start"] = $carbonStart;
+//            }
+//            else {
+//                $data["shift_start"] = false;
+//            }
             
             //if End time is less than start time then add a day
             if ($carbonEnd->lte($carbonStart)){

@@ -64,81 +64,90 @@ class TestNotification extends Command
         $breakGoal = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('break_goal');
         echo "break goal: " . $breakGoal . "\n";
                 
-        //check if user still has breaks left under goal number
-        if($completedBreaks < $breakGoal) 
-        {
-            $this->info('Completed break < break goal');
-            //get users start and end time matching that UUID order by desc to get last value
-            $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
-            $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
-            echo "start time " . $startTime . " end time " . $endTime . "\n";
+            //check if user still has breaks left under goal number
+            if($completedBreaks < $breakGoal) 
+            {
+                $this->info('Completed break < break goal');
+                //get users start and end time matching that UUID order by desc to get last value
+                $startTime = UserBreak::whereUuid($uuid)->value('start_time');
+                echo "db start time: " . $startTime . "\n";
+
+                $endTime = UserBreak::whereUuid($uuid)->value('end_time');
+                echo "db end time: " . $endTime . "\n";
+
+                //get the timezone difference int passed from user
+                $tzDiff = UserBreak::whereUuid($uuid)->value('timezone');
+                $d = abs($tzDiff);
+                $s = $tzDiff < 0 ? '-' : '+';
+               
+                // need to add the signs for the timezone to be parsed.
+                // variable to get the timezone name
+                $tzName = Carbon::now("{$s}{$d}")->tzName;
+                echo "tzName: " . $tzName . "\n";
+
+                // this gives the current datetime in the users timezone.
+                $tzNow = Carbon::now($tzName);
+                echo "tzNow: " . $tzNow . "\n";
+
+                //create start and end times with modified times with users timezone.
+                $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $tzName);
+                $carbonStart->modify("{$s}{$d} hours");
+                echo "modified carbonStart: " . $carbonStart . "\n";
+
+                $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $tzName);
+                $carbonEnd->modify("{$s}{$d} hours");  
+                echo "modified carbonEnd: " . $carbonEnd . "\n";
+
+                //if carbonEnd is < carbonStart the day needs to be pushed forward
+                if ($carbonEnd->lte($carbonStart)) {
+                    $carbonEnd->addDay();
+                    echo "carbonEnd < carbonStart new carbonEnd: " . $carbonEnd . "\n";
+                }
+
+                // when in production, replace carbonRequest with tzNow.
+                if ($tzNow->between($carbonStart, $carbonEnd))
+                {               
+                    $this->info('between start and end time');
+
+                    //get user dev token
+                    $devKey = $user->device_token;
+                    //send notification at interval from settings
+                    //new device key***********
+                     $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
+
+                    $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
+                    //'badge' => 1,
+                    //'sound' => 'example.aiff',
+
+                    'actionLocKey' => 'take a Motion Break.',
+                    'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
+                    //'locArgs' => array(
+                    //'localized test arg',
+                    //'localized args',
+                    //),
+                    //'launchImage' => 'image.jpg',
+
+    //                        'custom' => array('custom data' => array(
+    //                            'we' => 'want', 'send to app'
+    //                        ))
+                    ));
+
+                        $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
+                            ->to($devices)
+                            ->send($message);
+
+                        // get response for each device push
+                        foreach ($collection->pushManager as $push) {
+                            $response = $push->getAdapter()->getResponse();
+                        }
+
+                     $this->info('Notification Sent to test device');
+
+                }//end of if for between time
                 
-            //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
-            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
-            echo "Timezone difference ".$timezoneDiff. "\n";
-            //create carbon objects
-            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime);
-            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
-            echo "carbon start time " . $carbonStart . " carbon end time " . $carbonEnd . "\n";
+            }//end of if for completed breaks < goal breaks
             
-            //***if time is 00:00 to 05:00 for end time make it next day
-            //if End time is less than start time then add a day
-            if ($carbonEnd->lte($carbonStart)){
-                echo "end time .". $carbonEnd . " less than " . $carbonStart . "\n";
-                $carbonEnd->addDay();
-                echo "new end time .". $carbonEnd. "\n";
-            }
-            //time now
-            $currentTime = Carbon::now();
-            //$currentTime = Carbon::createFromFormat('H:i:s', $currentTime);
-            echo "carbon now ". $currentTime. "\n";
-//            $newCurrentTime = Carbon::now($timezoneDiff);
-//            echo "carbon now timezone ". $carbon. "\n";
-            
-            if ($currentTime->between($carbonStart, $carbonEnd))
-            {               
-                $this->info('between start and end time');
-
-
-                //get user dev token
-                $devKey = $user->device_token;
-                //send notification at interval from settings
-                //new device key***********
-                 $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device($devKey);
-                    
-                $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
-                //'badge' => 1,
-                //'sound' => 'example.aiff',
-
-                'actionLocKey' => 'take a Motion Break.',
-                'locKey' => 'Time to get fit, take a Motion Break!', //seems to be the message text
-                //'locArgs' => array(
-                //'localized test arg',
-                //'localized args',
-                //),
-                //'launchImage' => 'image.jpg',
-
-//                        'custom' => array('custom data' => array(
-//                            'we' => 'want', 'send to app'
-//                        ))
-                ));
-
-                $collection = \Davibennun\LaravelPushNotification\Facades\PushNotification::app('appNameIOS')
-                    ->to($devices)
-                     ->send($message);
-
-                    // get response for each device push
-                    foreach ($collection->pushManager as $push) {
-                        $response = $push->getAdapter()->getResponse();
-                    }
-
-                 $this->info('Notification Sent to test device');
-            
-        }//end of if for between time
-                
-    }//end of if for completed breaks < goal breaks
-            
-
+    //get the user break to retreive the reminder interval
     $break = UserBreak::where('uuid', '=', $uuid)->first();
     echo "Break interval is: " .$break->reminder_interval ."\n"; 
 

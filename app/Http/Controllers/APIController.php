@@ -438,7 +438,8 @@ COMPLETED BREAKS ROUTES TODO****************
             $tzName = Carbon::now("{$s}{$d}")->tzName;
             // this gives us the current datetime in the users timezone.
             $tzNow = Carbon::now($tzName);
-            
+            $data["now_carbon"] = $tzNow;
+
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $tzName);
             $carbonStart->modify("{$s}{$d} hours");
             $data["start_carbon"] = $carbonStart;
@@ -450,7 +451,9 @@ COMPLETED BREAKS ROUTES TODO****************
             }
             $data["end_carbon"] = $carbonEnd;
             
-            if ($tzNow->between($carbonStart, $carbonEnd))
+            $requestNow = Carbon::createFromFormat('H:i:s', "$hour:$minute:00", $tzName);
+            
+            if ($requestNow->between($carbonStart, $carbonEnd))
             {               
                 $data["is_between"] = true;
             }

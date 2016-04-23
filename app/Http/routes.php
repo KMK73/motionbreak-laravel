@@ -36,7 +36,7 @@ LOCATION ROUTES
 Route::get('/api/locations', 'APIController@getAllLocations');
 Route::get('/api/location/{uuid}', 'APIController@locationUUID');
 // adding new location
-Route::get('/api/location/{uuid}/{latitude}/{longitude}/{name}/{unique_id}', 'APIController@newLocation');
+Route::get('/api/location/{user_id}/{uuid}/{latitude}/{longitude}/{name}/{unique_id}', 'APIController@newLocation');
 
 // deleting location NOT WORKING***************
 Route::get('/api/location/delete/{unique_id}', 'APIController@deleteLocation'); 

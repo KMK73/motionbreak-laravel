@@ -74,8 +74,9 @@ locationUUID - gets all locations for that one user
 =======================================================================
 */
     
-    public function newLocation($uuid,$latitude, $longitude, $name, $unique_id) {
+    public function newLocation($user_id, $uuid,$latitude, $longitude, $name, $unique_id) {
         $userLocation = new UserLocation;
+        $userLocation->user_id = $user_id;
         $userLocation->uuid = $uuid;
         $userLocation->longitude = $longitude;
         $userLocation->latitude = $latitude;

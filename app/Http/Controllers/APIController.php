@@ -440,13 +440,21 @@ COMPLETED BREAKS ROUTES TODO****************
             $tzNow = Carbon::now($tzName);
             
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
-            $carbonStart->modify("{$s}{$d}");
+            $carbonStart->modify("{$s}{$d} hours");
             $data["start_carbon"] = $carbonStart;
             
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $timezoneName);
-            $carbonEnd->modify("{$s}{$d}");
+            $carbonEnd->modify("{$s}{$d} hours");
             $data["end_carbon"] = $carbonEnd;
             
+            
+            if ($tzNow->between($carbonStart, $carbonEnd))
+            {               
+                $data["is_between"] = true;
+            }
+            else {
+                $data["is_between"] = false;
+            }
             //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
 //            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
 //            $data["tz"] = $timezoneDiff;
@@ -475,27 +483,27 @@ COMPLETED BREAKS ROUTES TODO****************
 //                $data["shift_start"] = false;
 //            }
             
-            //if End time is less than start time then add a day
-            if ($carbonEnd->lte($carbonStart)){
-                $carbonEnd->addDay();
-                $data["shift_end"] = true;
-                $data["shifted_time"] = $carbonEnd;
-            }
-            else {
-                $data["shift_end"] = false;
-            }
-            //time now
-//            $currentTime = Carbon::now();
-            $currentTime = Carbon::createFromTime($hour, $minute, 0);
-            $data["current_time"] = $currentTime;
-            
-            if ($currentTime->between($carbonStart, $carbonEnd))
-            {               
-                $data["is_between"] = true;
-            }
-            else {
-                $data["is_between"] = false;
-            }
+//            //if End time is less than start time then add a day
+//            if ($carbonEnd->lte($carbonStart)){
+//                $carbonEnd->addDay();
+//                $data["shift_end"] = true;
+//                $data["shifted_time"] = $carbonEnd;
+//            }
+//            else {
+//                $data["shift_end"] = false;
+//            }
+//            //time now
+////            $currentTime = Carbon::now();
+//            $currentTime = Carbon::createFromTime($hour, $minute, 0);
+//            $data["current_time"] = $currentTime;
+//            
+//            if ($currentTime->between($carbonStart, $carbonEnd))
+//            {               
+//                $data["is_between"] = true;
+//            }
+//            else {
+//                $data["is_between"] = false;
+//            }
         }
         else {
             $data["hasBreaks"] = false;

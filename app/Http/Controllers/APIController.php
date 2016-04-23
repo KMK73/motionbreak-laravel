@@ -435,7 +435,7 @@ COMPLETED BREAKS ROUTES TODO****************
             $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
             $data["tz"] = $timezoneDiff;
             //create carbon objects
-            $timezoneName = Carbon::now($timezoneDiff->tzName);
+            $timezoneName = Carbon::now($timezoneDiff)->tzName;
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
             $data["start_carbon"] = $carbonStart;
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $timezoneName);

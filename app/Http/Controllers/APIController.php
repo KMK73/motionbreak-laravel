@@ -451,9 +451,10 @@ COMPLETED BREAKS ROUTES TODO****************
             }
             $data["end_carbon"] = $carbonEnd;
             
-            $requestNow = Carbon::createFromFormat('H:i:s', "$hour:$minute:00", $tzName);
-            
-            if ($requestNow->between($carbonStart, $carbonEnd))
+            $carbonRequest = Carbon::createFromFormat('H:i:s', "$hour:$minute:00", $tzName);
+            $data["request_carbon"] = $carbonRequest;
+            // when in production, replace carbonRequest with tzNow.
+            if ($carbonRequest->between($carbonStart, $carbonEnd))
             {               
                 $data["is_between"] = true;
             }

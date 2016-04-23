@@ -109,6 +109,7 @@ class TestNotification extends Command
                 if ($tzNow->between($carbonStart, $carbonEnd))
                 {               
                     $this->info('between start and end time');
+                    echo "BETWEEN start= " . $carbonStart . " now= ".$tzNow." end= ".$carbonEnd."\n";
 
                     //get user dev token
                     $devKey = $user->device_token;

@@ -426,22 +426,42 @@ COMPLETED BREAKS ROUTES TODO****************
         {
             $data["hasBreaks"] = true;
             //get users start and end time matching that UUID order by desc to get last value
-            $startTime = UserBreak::where('uuid', $uuid)->value('start_time');
+            $startTime = UserBreak::whereUuid($uuid)->value('start_time');
             $data["start"] = $startTime;
-            $endTime = UserBreak::where('uuid', $uuid)->value('end_time');          
+            $endTime = UserBreak::whereUuid($uuid)->value('end_time');          
             $data["end"] = $endTime;
-                
-            //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
-            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
-            $data["tz"] = $timezoneDiff;
-            //create carbon objects
-            $d = abs($timezoneDiff);
-            $s = $timezoneDiff < 0 ? '-' : '+';
-            $timezoneName = Carbon::now("{$s}{$d}")->tzName;
+            
+            $tzDiff = UserBreak::whereUuid($uuid)->value('timezone');
+            $d = abs($tzDiff);
+            $s = $tzDiff < 0 ? '-' : '+';
+            // we need to add the signs for the timezone to be parsed.
+            $tzName = Carbon::now("{$s}{$d}")->tzName;
+            // this gives us the current datetime in the users timezone.
+            $tzNow = Carbon::now($tzName);
+            
             $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
+            $carbonStart->modify("{$s}{$d}");
             $data["start_carbon"] = $carbonStart;
+            
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $timezoneName);
+            $carbonEnd->modify("{$s}{$d}");
             $data["end_carbon"] = $carbonEnd;
+            
+            //create carbon objects for start, end, current WITH OFFSET OF USERS TIMEZONE 
+//            $timezoneDiff = UserBreak::where('uuid', $uuid)->value('timezone');
+//            $data["tz"] = $timezoneDiff;
+//            // we need to add the signs for the timezone to be parsed.
+//            $d = abs($timezoneDiff);
+//            $s = $timezoneDiff < 0 ? '-' : '+';
+//            $timezoneName = Carbon::now("{$s}{$d}")->tzName;
+//            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
+//            $carbonStart_ = Carbon::createFromFormat('H:i:s', $startTime);
+//            $carbonStart_->tz($timezoneName);
+//            
+//            $data["start_carbon"] = $carbonStart;
+//            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime);
+//            $carbonEnd->tz($timezoneName);
+//            $data["end_carbon"] = $carbonEnd;
             
 //            //***if time is 00:00 to 12:00 for start time make it previous day
 //            $minStart = Carbon::createFromTime(0, 0, 0); 

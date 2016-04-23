@@ -439,11 +439,11 @@ COMPLETED BREAKS ROUTES TODO****************
             // this gives us the current datetime in the users timezone.
             $tzNow = Carbon::now($tzName);
             
-            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $timezoneName);
+            $carbonStart = Carbon::createFromFormat('H:i:s', $startTime, $tzName);
             $carbonStart->modify("{$s}{$d} hours");
             $data["start_carbon"] = $carbonStart;
             
-            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $timezoneName);
+            $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $tzName);
             $carbonEnd->modify("{$s}{$d} hours");
             $data["end_carbon"] = $carbonEnd;
             

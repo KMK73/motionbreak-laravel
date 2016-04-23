@@ -444,9 +444,11 @@ COMPLETED BREAKS ROUTES TODO****************
             $data["start_carbon"] = $carbonStart;
             
             $carbonEnd = Carbon::createFromFormat('H:i:s', $endTime, $tzName);
-            $carbonEnd->modify("{$s}{$d} hours");
+            $carbonEnd->modify("{$s}{$d} hours");            
+            if ($carbonEnd->lte($carbonStart)) {
+                $carbonEnd->addDay();
+            }
             $data["end_carbon"] = $carbonEnd;
-            
             
             if ($tzNow->between($carbonStart, $carbonEnd))
             {               

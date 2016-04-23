@@ -101,6 +101,7 @@ class TestNotification extends Command
                 //if carbonEnd is < carbonStart the day needs to be pushed forward
                 if ($carbonEnd->lte($carbonStart)) {
                     $carbonEnd->addDay();
+                    $this->info('carbonEnd < carbonStart add day');
                     echo "carbonEnd < carbonStart new carbonEnd: " . $carbonEnd . "\n";
                 }
 

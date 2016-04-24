@@ -71,7 +71,7 @@ Route::get('/api/completed_breaks/{uuid}', 'APIController@breakWithUUID');
 // update break settings
 Route::get('/api/completed_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{timezone}/{start_time}/{end_time}', 'APIController@updateBreakSettings');
 // update break settings
-Route::get('/api/default_break/{user_id}/{uuid}/{reminder_interval}/{break_goal}/{start_time}/{end_time}', 'APIController@defaultBreakSettings');
+Route::get('/api/default_break/{user_id}/{uuid}', 'APIController@defaultBreakSettings');
 
 /* 
 IOS NOTIFICATION ROUTES

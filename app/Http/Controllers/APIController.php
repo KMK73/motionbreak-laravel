@@ -222,17 +222,17 @@ COMPLETED BREAKS ROUTES TODO****************
 
     
     //set default values 
-    public function defaultBreakSettings($user_id, $uuid,$reminder_interval, $break_goal, $start_time, $end_time) {
+    public function defaultBreakSettings($user_id, $uuid) {
         
         //new user break row
         $break = new UserBreak;
         
         $break->user_id = $user_id;
         $break->uuid = $uuid;
-        $break->reminder_interval = $reminder_interval;
-        $break->break_goal = $break_goal;
-        $break->start_time = $start_time;
-        $break->end_time = $end_time;
+        $break->reminder_interval = 3600;
+        $break->break_goal = 10;
+        $break->start_time = "13:00:00";
+        $break->end_time = "18:00:00";
         //update the new values
         $break->save();
                 

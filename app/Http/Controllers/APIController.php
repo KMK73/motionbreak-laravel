@@ -175,7 +175,7 @@ movementUUID - gets all movements for that one user
     }
     
     public function addCompletedMovement($user_id, $uuid,$exercise, $completed_breaks, $break_goal) {
-        //add 1 to completed breaks 
+        //add 1 to completed breaks in user_breaks table
         $break = UserBreak::where('user_id', '=', $user_id)->first();
         $break->completed_movement = $completed_breaks;
         $break->save();
@@ -240,7 +240,7 @@ COMPLETED BREAKS ROUTES TODO****************
     public function updateBreakSettings($user_id, $uuid,$reminder_interval, $break_goal,$timezone, $start_time, $end_time) {
         
         //find user break row
-//        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
 //        $break->completed_movement = 0;
 
         $break->user_id = $user_id;

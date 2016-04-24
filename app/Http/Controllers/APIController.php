@@ -143,13 +143,6 @@ movementUUID - gets all movements for that one user
     public function newMovement() {
         
         $userMovement = new Movement; 
-//        $userLocation = new UserLocation;
-//        $userLocation->uuid = $uuid;
-//        $userLocation->longitude = $longitude;
-//        $userLocation->latitude = $latitude;
-//        $userLocation->name = $name;
-//        $userLocation->unique_id = $unique_id; 
-//        $userLocation->save();
                 
         return response()->json($userMovement); 
     }
@@ -182,6 +175,9 @@ movementUUID - gets all movements for that one user
     }
     
     public function addCompletedMovement($user_id, $uuid,$exercise, $completed_breaks, $break_goal) {
+        //add 1 to completed breaks 
+        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        $break->completed_movement = $completed_breaks;
         
         $newMovement = new CompletedMovement;
         $newMovement->user_id = $user_id;
@@ -226,7 +222,7 @@ COMPLETED BREAKS ROUTES TODO****************
         
         //new user break row
         $break = new UserBreak;
-        
+        $break->completed_movements = 0;
         $break->user_id = $user_id;
         $break->uuid = $uuid;
         $break->reminder_interval = 3600;

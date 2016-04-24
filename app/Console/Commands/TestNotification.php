@@ -61,7 +61,7 @@ class TestNotification extends Command
         $completedBreaks = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('completed_breaks');
         echo "completed breaks: " . $completedBreaks . "\n";
                 
-        $breakGoal = CompletedMovement::orderby('created_at', 'desc')->where('uuid', $uuid)->value('break_goal');
+        $breakGoal = UserBreak::whereUuid($uuid)->value('break_goal');
         echo "break goal: " . $breakGoal . "\n";
                 
             //check if user still has breaks left under goal number

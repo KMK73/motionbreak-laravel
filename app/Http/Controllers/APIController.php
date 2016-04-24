@@ -222,7 +222,7 @@ COMPLETED BREAKS ROUTES TODO****************
         
         //new user break row
         $break = new UserBreak;
-        $break->completed_movements = 0;
+        $break->completed_movement = 0;
         $break->user_id = $user_id;
         $break->uuid = $uuid;
         $break->reminder_interval = 3600;

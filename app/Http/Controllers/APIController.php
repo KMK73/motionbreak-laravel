@@ -176,7 +176,7 @@ movementUUID - gets all movements for that one user
     
     public function addCompletedMovement($user_id, $uuid,$exercise, $completed_breaks, $break_goal) {
         //add 1 to completed breaks 
-        $break = UserBreak::where('uuid', '=', $uuid)->first();
+        $break = UserBreak::where('user_id', '=', $user_id)->first();
         $break->completed_movement = $completed_breaks;
         $break->save();
         

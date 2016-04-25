@@ -241,8 +241,6 @@ COMPLETED BREAKS ROUTES TODO****************
         
         //find user break row
         $break = UserBreak::where('uuid', '=', $uuid)->first();
-//        $break->completed_movement = 0;
-
         $break->user_id = $user_id;
         $break->uuid = $uuid;
         $break->reminder_interval = $reminder_interval;

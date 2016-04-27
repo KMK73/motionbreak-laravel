@@ -648,14 +648,16 @@ COMPLETED BREAKS ROUTES
          
         //check if notifications table has multiple jobs and delete those job ids from jobs table 
         $notifications = Notification::where('user_id', '=', $user_id)->get();
+        echo "notifications: " . $notifications . "\n"; 
+
         //$jobID = $notfications->value('job_id');
 //        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
         
         //echo "notifications last job id: " . $jobID . "\n"; 
-        foreach ($notifications as $notification) {
-            $notification = Notification::where('user_id', '=', $user_id);
-            echo "notifications: " . $notification . "\n"; 
-        }
+//        foreach ($notifications as $notification) {
+//            $notification = Notification::where('user_id', '=', $user_id);
+//            echo "notifications: " . $notification . "\n"; 
+//        }
         
 //        DB::table('jobs')->where('job_id', '!=',$jobID);
 //

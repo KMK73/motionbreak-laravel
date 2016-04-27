@@ -162,6 +162,14 @@ class TestNotification extends Command
     $job_id = dispatch($job);
     echo "JOB ID IS : " . $job_id . "\n";
 
+        //prevent multiple deleting least recent entries 
+        //new notification to table
+        $notification = new Notification;
+        $notification->user_id = $user_id;
+        $notification->job_id = $job_id; 
+        echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
+        $notification->save();
+        
     //UPDATE USER BREAK with new job_id
     $break->job_id = $job_id;
     //update the new values

@@ -659,8 +659,10 @@ COMPLETED BREAKS ROUTES
         echo "count: ". $count. "\n";
         
         for($i=0; $i < count($notifications)-1; $i++){
-            $jobID = $notifications->job_id;
-            echo "job id: " . $jobID . "\n"; 
+            foreach ($notifications as $notification) {
+                $jobID = $notification->job_id;
+                echo "job id: " . $jobID . "\n"; 
+            }
         }
 //        DB::table('jobs')->where('job_id', '!=',$jobID);
 //

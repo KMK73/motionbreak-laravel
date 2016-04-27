@@ -8,6 +8,7 @@ use App\User; //user model
 use App\UserLocation; //user location model
 use App\CompletedMovement; //completed movement model
 use App\UserBreak; //user breaks model
+use App\Notification; //user breaks model
 use App\Jobs\Job;
 
 class TestNotification extends Command

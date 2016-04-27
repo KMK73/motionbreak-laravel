@@ -12,6 +12,7 @@ use App\UserLocation; //user location model
 use App\Movement; //movement model
 use App\CompletedMovement; //completed movement model
 use App\UserBreak; //user breaks model
+use App\Notification; //notifications model
 use App\Jobs\SendBreakNotification;
 use Davibennun\LaravelPushNotification;//package to send ios notifications
 

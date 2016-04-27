@@ -654,7 +654,7 @@ COMPLETED BREAKS ROUTES
         //echo "notifications last job id: " . $jobID . "\n"; 
         foreach ($notifications as $notification) {
             $notification = Notification::where('user_id', '=', $user_id);
-            echo "notifications: " . $notfication . "\n"; 
+            echo "notifications: " . $notification . "\n"; 
         }
         
 //        DB::table('jobs')->where('job_id', '!=',$jobID);

@@ -655,7 +655,7 @@ COMPLETED BREAKS ROUTES
             $jobID = $notification->job_id;
             echo "job id: " . $jobID . "\n"; 
         }
-        $count = count($notification)-1;
+        $count = count($notification);
         echo "count: ". $count. "\n";
         
         for($i=0; $i < count($notification)-1; $i++){

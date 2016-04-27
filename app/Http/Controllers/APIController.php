@@ -167,8 +167,20 @@ movementUUID - gets all movements for that one user
     }
     public function completedMovementUUID ($uuid){
         //get movements for today and uuid
-       $movements = CompletedMovement::where('uuid', '=', $uuid)
-                    ->whereDate('created_at', '=', date('Y-m-d'))
+        //get the timezone difference int passed from user
+        $tzDiff = UserBreak::whereUuid($uuid)->value('timezone');
+        $d = abs($tzDiff);
+        $s = $tzDiff < 0 ? '-' : '+';
+               
+        // need to add the signs for the timezone to be parsed.
+        // variable to get the timezone name
+        $tzName = Carbon::now("{$s}{$d}")->tzName;
+        $tzNow = Carbon::now($tzName);
+        echo "tzNow: " . $tzNow . "\n";
+
+        $movements = CompletedMovement::where('uuid', '=', $uuid)
+//                    ->whereDate('created_at', '=', date('Y-m-d'))
+                    ->whereDate('created_at', '=', $tzNow)
                     ->get();
         
         return response()->json(array('movements' => $movements));

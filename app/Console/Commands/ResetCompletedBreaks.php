@@ -46,6 +46,8 @@ class ResetCompletedBreaks extends Command
      */
     public function handle()
     {
+        //run every hour 
+        //pass the user timezone and check the timezone if its midnight reset everything
         $movements = CompletedMovement::all();
         
         foreach($movements as $movement) 

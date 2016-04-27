@@ -657,11 +657,12 @@ COMPLETED BREAKS ROUTES
             $jobID = $notification->job_id;
 
             if($jobID == $lastID ){
-                echo "found last id";
+                echo "found last id \n"; 
                 break;
             }
             echo "job id: " . $jobID . "\n"; 
-
+            DB::delete('delete from jobs where id = :id', ['id' => $jobID]); 
+            echo "deleted job: " . $jobID . "\n"; 
         }
         $count = count($notifications);
         echo "count: ". $count. "\n";

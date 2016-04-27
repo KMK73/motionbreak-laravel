@@ -656,7 +656,7 @@ COMPLETED BREAKS ROUTES
             echo "job id: " . $jobID . "\n"; 
         }
         
-        for($i; $i < count($notification)-1; $i++){
+        for($i=0; $i < count($notification)-1; $i++){
             $jobID = $notification->job_id;
             echo "job id: " . $jobID . "\n"; 
         }

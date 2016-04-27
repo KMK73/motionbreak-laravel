@@ -652,7 +652,7 @@ COMPLETED BREAKS ROUTES
 //        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
         
         echo "notifications last job id: " . $jobID . "\n"; 
-        echo "notifications: " . $notifications . "\n"; 
+        echo "notifications: " . $notfications . "\n"; 
 //        DB::table('jobs')->where('job_id', '!=',$jobID);
 //
 //        //if there is more than 1 notification listed for a user delete them

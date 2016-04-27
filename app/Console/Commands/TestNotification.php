@@ -53,7 +53,7 @@ class TestNotification extends Command
         
         echo "Looking for user ". $user_id."\n";
         $user = User::find($user_id);
-
+        
         //get uuid of user 
         $uuid = $user->uuid;
         echo "uuid ".$uuid . "\n"; 

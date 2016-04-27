@@ -363,14 +363,13 @@ COMPLETED BREAKS ROUTES
     $user = User::find($user_id);
          
     //check if notifications table has multiple jobs and delete those job ids from jobs table 
-        $lastJobID = Notification::where('user_id', '=', $user_id)->all();
-        $lastJobID = $lastJobID->value('job_id');
-        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
+        $notfications = Notification::where('user_id', '=', $user_id);
+        $jobID = $notfications->value('job_id');
+//        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
         
-        echo "notifications last job id: " . $lastJobID . "\n"; 
+        echo "notifications last job id: " . $jobID . "\n"; 
         echo "notifications: " . $notifications . "\n"; 
-        DB::table('notifications')->where('user_id', '=', $user_id)
-                        ->where('job_id', '!=',$lastJobID);
+        DB::table('jobs')->where('job_id', '!=',$jobID);
 
         //if there is more than 1 notification listed for a user delete them
         //DB is database call directly
@@ -640,4 +639,30 @@ COMPLETED BREAKS ROUTES
         }
         return response()->json($data); 
     }
+    
+    
+    public function testJobsTable($user_id,) {
+         
+        echo "Looking for user ". $user_id."\n";
+        $user = User::find($user_id);
+         
+        //check if notifications table has multiple jobs and delete those job ids from jobs table 
+        $notfications = Notification::where('user_id', '=', $user_id);
+        $jobID = $notfications->value('job_id');
+//        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
+        
+        echo "notifications last job id: " . $jobID . "\n"; 
+        echo "notifications: " . $notifications . "\n"; 
+//        DB::table('jobs')->where('job_id', '!=',$jobID);
+//
+//        //if there is more than 1 notification listed for a user delete them
+//        //DB is database call directly
+//        foreach ($notifications as $notification) {
+//            DB::delete('delete from jobs where id = :id', ['id' => $notification]); 
+//            echo "deleted job: " . $notification . "\n"; 
+//
+//        }
+    }
 }
+
+    

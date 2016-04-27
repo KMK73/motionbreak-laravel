@@ -80,6 +80,8 @@ IOS NOTIFICATION ROUTES
 Route::get('/api/test/notification', 'APIController@notification');
 //testing to add user_id with job ids
 Route::get('/api/test-job-table/notification/{user_id}', 'APIController@notificationJobTable');
+//test just the notification table data
+Route::get('/api/test-job-table/{user_id}', 'APIController@testJobsTable');
 
 //route for location based pushes
 Route::get('api/enter/{uuid}', 'APIController@enteredMonitoredLocation');

@@ -78,6 +78,9 @@ IOS NOTIFICATION ROUTES
 */
 //route for ios notification test
 Route::get('/api/test/notification', 'APIController@notification');
+//testing to add user_id with job ids
+Route::get('/api/test-job-table/notification/{user_id}', 'APIController@notificationJobTable');
+
 //route for location based pushes
 Route::get('api/enter/{uuid}', 'APIController@enteredMonitoredLocation');
 //delete job_id in queue 

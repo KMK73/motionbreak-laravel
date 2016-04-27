@@ -34,7 +34,7 @@ class SendBreakNotification extends Job implements ShouldQueue, SelfHandling
     public function handle()
     {
      //queue the job with this user id    
-        \Artisan::queue('notification:test', [
+        \Artisan::queue('notification:ios', [
             'user' => $this->user_id]);
 
         

@@ -48,24 +48,31 @@ class ResetCompletedBreaks extends Command
     {
         //run every hour 
         //pass the user timezone and check the timezone if its midnight reset everything
-        $movements = CompletedMovement::all();
+//        $users = UserBreak::all();
+//        foreach($users as $user) 
+//        {
+//            $tz = $user->timezone;
+//            echo 'timezone'. $tz. "\n";
+//            $now = Carbon::now(); 
+//            echo 'now '. $now. "\n";
+
+            $movements = CompletedMovement::all();
+            foreach($movements as $movement) 
+            {
+                $movement->completed_breaks = 0;
+                $movement->save();
+                echo 'Movements saving.';
+            }
+
+            $movements = UserBreak::all();
+            foreach($movements as $movement) 
+            {
+                $movement->completed_movement = 0;
+                $movement->save();
+                echo 'Movements from breaks saving.';
+            }
+            $this->info('completed breaks reset');        
         
-        foreach($movements as $movement) 
-        {
-            $movement->completed_breaks = 0;
-            $movement->save();
-            echo 'Movements saving.';
-        }
-        
-        $movements = UserBreak::all();
-        
-        foreach($movements as $movement) 
-        {
-            $movement->completed_movement = 0;
-            $movement->save();
-            echo 'Movements from breaks saving.';
-        }
-        $this->info('completed breaks reset');        
-        
+        //}
     }//end of handle function
 }

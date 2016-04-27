@@ -176,13 +176,12 @@ movementUUID - gets all movements for that one user
         // variable to get the timezone name
         $tzName = Carbon::now("{$s}{$d}")->tzName;
         $tzNow = Carbon::now($tzName);
-        echo "tzNow: " . $tzNow . "\n";
+        //echo "tzNow: " . $tzNow . "\n";
         $tzNow->format('Y-m-d'); // Equivalent: echo $dt->format('Y-m-d');
         $nowDate = $tzNow->toDateString(). "\n";  
-        echo "tzNow just date: " . $nowDate . "\n";
+        //echo "tzNow just date: " . $nowDate . "\n";
 
         $movements = CompletedMovement::where('uuid', '=', $uuid)
-//                    ->whereDate('created_at', '=', date('Y-m-d'))
                     ->whereDate('created_at', '=', $nowDate)
                     ->get();
         
@@ -207,21 +206,10 @@ movementUUID - gets all movements for that one user
     }
     
     
-    /* 
-COMPLETED BREAKS ROUTES TODO****************
+/* 
+COMPLETED BREAKS ROUTES 
 ==================================================================
-        Schema::create('user_breaks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('break_goal');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->integer('reminder_interval');
-            $table->integer('user_id');
-            $table->string('uuid');
-            $table->integer('job_id');
-            $table->timestamps();
-        });
-        */
+*/
     public function getBreakSettings(){
         $breaks = UserBreak::all();
         //added key for obj c to pull

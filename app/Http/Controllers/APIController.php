@@ -651,10 +651,10 @@ COMPLETED BREAKS ROUTES
         echo "notifications: " . $notifications . "\n";
         
         //echo "notifications last job id: " . $jobID . "\n"; 
-        foreach ($notifications as $notification) {
-            $jobID = $notification->job_id;
-            echo "job id: " . $jobID . "\n"; 
-        }
+//        foreach ($notifications as $notification) {
+//            $jobID = $notification->job_id;
+//            echo "job id: " . $jobID . "\n"; 
+//        }
         $count = count($notifications);
         echo "count: ". $count. "\n";
         

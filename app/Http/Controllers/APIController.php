@@ -372,7 +372,8 @@ COMPLETED BREAKS ROUTES
     $user = User::find($user_id);
          
     //check if notifications table has multiple jobs and delete those job ids from jobs table 
-        $lastJobID = Notification::where('user_id', '=', $user_id)->value('job_id')->last();
+        $lastJobID = Notification::where('user_id', '=', $user_id)->last();
+        $lastJobID = $lastJobID->value('job_id');
         $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
         
         echo "notifications last job id: " . $lastJobID . "\n"; 

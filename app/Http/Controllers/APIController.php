@@ -641,7 +641,7 @@ COMPLETED BREAKS ROUTES
     }
     
     
-    public function testJobsTable($user_id,) {
+    public function testJobsTable($user_id) {
          
         echo "Looking for user ". $user_id."\n";
         $user = User::find($user_id);

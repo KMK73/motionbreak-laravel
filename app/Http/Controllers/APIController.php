@@ -178,12 +178,12 @@ movementUUID - gets all movements for that one user
         $tzNow = Carbon::now($tzName);
         echo "tzNow: " . $tzNow . "\n";
         $tzNow->format('Y-m-d'); // Equivalent: echo $dt->format('Y-m-d');
-        echo $tzNow->toDateString(). "\n";  
-        echo "tzNow just date: " . $tzNow . "\n";
+        $nowDate = $tzNow->toDateString(). "\n";  
+        echo "tzNow just date: " . $nowDate . "\n";
 
         $movements = CompletedMovement::where('uuid', '=', $uuid)
 //                    ->whereDate('created_at', '=', date('Y-m-d'))
-                    ->whereDate('created_at', '=', $tzNow)
+                    ->whereDate('created_at', '=', $nowDate)
                     ->get();
         
         return response()->json(array('movements' => $movements));

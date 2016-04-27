@@ -175,14 +175,14 @@ movementUUID - gets all movements for that one user
         // need to add the signs for the timezone to be parsed.
         // variable to get the timezone name
         $tzName = Carbon::now("{$s}{$d}")->tzName;
-        echo "tzName: " . $tzName . "\n";
-
-        $carbonNow = Carbon::createFromFormat('H:i:s', Carbon::now(), $tzName);
-        echo "tzNow: " . $carbonNow . "\n";
+        $tzNow = Carbon::now($tzName);
+        echo "tzNow: " . $tzNow . "\n";
+        $tzNow->toDateString(); // Equivalent: echo $dt->format('Y-m-d');
+        echo "tzNow just date: " . $tzNow . "\n";
 
         $movements = CompletedMovement::where('uuid', '=', $uuid)
 //                    ->whereDate('created_at', '=', date('Y-m-d'))
-                    ->whereDate('created_at', '=', $carbonNow)
+                    ->whereDate('created_at', '=', $tzNow)
                     ->get();
         
         return response()->json(array('movements' => $movements));

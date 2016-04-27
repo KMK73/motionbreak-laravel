@@ -368,7 +368,6 @@ COMPLETED BREAKS ROUTES
         //check if user still has breaks left under goal number
         if($completedBreaks < $breakGoal) 
         {
-            $this->info('Completed break < break goal');
             //get users start and end time matching that UUID order by desc to get last value
             $startTime = UserBreak::whereUuid($uuid)->value('start_time');
             echo "db start time: " . $startTime . "\n";
@@ -402,13 +401,13 @@ COMPLETED BREAKS ROUTES
             //if carbonEnd is < carbonStart the day needs to be pushed forward
             if ($carbonEnd->lte($carbonStart)) {
                 $carbonEnd->addDay();
-                $this->info('carbonEnd < carbonStart add day');
+                //$this->info('carbonEnd < carbonStart add day');
                 echo "carbonEnd < carbonStart new carbonEnd: " . $carbonEnd . "\n";
             }
 
             if ($tzNow->between($carbonStart, $carbonEnd))
             {               
-                $this->info('between start and end time');
+                //$this->info('between start and end time');
                 echo "BETWEEN start= " . $carbonStart . " now= ".$tzNow." end= ".$carbonEnd."\n";
 
                 //get user dev token
@@ -443,7 +442,7 @@ COMPLETED BREAKS ROUTES
                         $response = $push->getAdapter()->getResponse();
                     }
 
-                 $this->info('Notification Sent to test device');
+                 //$this->info('Notification Sent to test device');
 
             }//end of if for between time
 

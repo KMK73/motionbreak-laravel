@@ -659,7 +659,7 @@ COMPLETED BREAKS ROUTES
         echo "count: ". $count. "\n";
         
         for($i=0; $i < count($notifications)-1; $i++){
-            $jobID = $notification->job_id;
+            $jobID = $notifications->job_id;
             echo "job id: " . $jobID . "\n"; 
         }
 //        DB::table('jobs')->where('job_id', '!=',$jobID);

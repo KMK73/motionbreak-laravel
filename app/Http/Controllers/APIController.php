@@ -39,15 +39,6 @@ class APIController extends Controller
         $user = new User;
         $user->uuid = $uuid; 
         $user->save();
-                
-        //set break settings to default when user is created ****TODO
-//        $break = new UserBreak;
-//        $break = UserBreak::where('uuid', '=', $uuid)->first();
-//        $break->uuid = $uuid;
-//        $break->reminder_interval = 3600;//1 hour
-//        $break->break_goal = 10;
-//        //update the new values
-//        $break->save();
         
         return response()->json($user); 
     }
@@ -372,7 +363,7 @@ COMPLETED BREAKS ROUTES
     $user = User::find($user_id);
          
     //check if notifications table has multiple jobs and delete those job ids from jobs table 
-        $lastJobID = Notification::where('user_id', '=', $user_id)->last();
+        $lastJobID = Notification::where('user_id', '=', $user_id)->all();
         $lastJobID = $lastJobID->value('job_id');
         $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
         

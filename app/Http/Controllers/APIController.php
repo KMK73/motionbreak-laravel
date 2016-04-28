@@ -289,7 +289,7 @@ COMPLETED BREAKS ROUTES
         $notification = new Notification;
         $notification->user_id = $user_id;
         $notification->job_id = $job_id; 
-        //echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
+        echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
         $notification->save();
         
 //        return response()->json(['success' => true]);

@@ -185,12 +185,24 @@ movementUUID - gets all movements for that one user
         $break->completed_movement = $completed_breaks;
         $break->save();
         
+        //get timezone to save the movement in users timezone
+        $tzDiff = UserBreak::whereUuid($uuid)->value('timezone');
+        $d = abs($tzDiff);
+        $s = $tzDiff < 0 ? '-' : '+';
+               
+        // need to add the signs for the timezone to be parsed.
+        // variable to get the timezone name
+        $tzName = Carbon::now("{$s}{$d}")->tzName;
+        $tzNow = Carbon::now($tzName);
+        echo "tzNow: " . $tzNow . "\n";
+        
         $newMovement = new CompletedMovement;
         $newMovement->user_id = $user_id;
         $newMovement->uuid = $uuid;
         $newMovement->exercise = $exercise;
         $newMovement->completed_breaks = $completed_breaks;
-        $newMovement->break_goal = $break_goal; 
+        $newMovement->break_goal = $break_goal;
+        $newMovement->created_at = $tzNow;
         $newMovement->save();
                 
         return response()->json($newMovement); 

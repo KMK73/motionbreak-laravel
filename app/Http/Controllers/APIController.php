@@ -167,10 +167,10 @@ movementUUID - gets all movements for that one user
         // variable to get the timezone name
         $tzName = Carbon::now("{$s}{$d}")->tzName;
         $tzNow = Carbon::now($tzName);
-        echo "tzNow: " . $tzNow . "\n";
+        //echo "tzNow: " . $tzNow . "\n";
         $tzNow->format('Y-m-d'); // Equivalent: echo $dt->format('Y-m-d');
         $nowDate = $tzNow->toDateString(). "\n";  
-        echo "tzNow just date: " . $nowDate . "\n";
+        //echo "tzNow just date: " . $nowDate . "\n";
 
         $movements = CompletedMovement::where('uuid', '=', $uuid)
                     ->whereDate('created_at', '=', $nowDate)
@@ -194,7 +194,7 @@ movementUUID - gets all movements for that one user
         // variable to get the timezone name
         $tzName = Carbon::now("{$s}{$d}")->tzName;
         $tzNow = Carbon::now($tzName);
-        echo "tzNow: " . $tzNow . "\n";
+        //echo "tzNow: " . $tzNow . "\n";
         
         $newMovement = new CompletedMovement;
         $newMovement->user_id = $user_id;

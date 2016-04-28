@@ -267,26 +267,18 @@ COMPLETED BREAKS ROUTES
 //        //DB is database call directly
 //        DB::delete('delete from jobs where id = :id', ['id' => $job_id]);   
         
+        
         //get user_id
         $user_id = $user->id; 
         //echo "user_id : " . $user_id . "\n"; 
  
-//         //check if notifications table has multiple jobs and delete those job ids from jobs table 
-//        $lastJobID = Notification::where('user_id', '=', $user_id)->last()->value('job_id');
-//        $notifications = Notification::where('user_id', '=', $user_id)->value('job_id')->get();
-//        
-//        echo "notifications last job id: " . $lastJobID . "\n"; 
-//        echo "notifications: " . $notifications . "\n"; 
-//        DB::table('notifications')->where('user_id', '=', $user_id)
-//                        ->where('job_id', '!=',$lastJobID);
-//
-//        //if there is more than 1 notification listed for a user delete them
-//        //DB is database call directly
-//        foreach ($notifications as $notification) {
-//            DB::delete('delete from jobs where id = :id', ['id' => $notification]); 
-//            echo "deleted job: " . $notification . "\n"; 
-//
-//        }
+        //prevent multiple deleting least recent entries 
+        //new notification to table
+        $notification = new Notification;
+        $notification->user_id = $user_id;
+        $notification->job_id = $job_id; 
+        echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
+        $notification->save();
         
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();

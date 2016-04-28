@@ -271,14 +271,6 @@ COMPLETED BREAKS ROUTES
         //get user_id
         $user_id = $user->id; 
         //echo "user_id : " . $user_id . "\n"; 
- 
-        //prevent multiple deleting least recent entries 
-        //new notification to table
-        $notification = new Notification;
-        $notification->user_id = $user_id;
-        $notification->job_id = $job_id; 
-        echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
-        $notification->save();
         
         //sending first notification after a delay of interval time
         $break = UserBreak::where('uuid', '=', $uuid)->first();
@@ -291,6 +283,15 @@ COMPLETED BREAKS ROUTES
         $break->job_id = $job_id;
         //echo "Break starting JOB ID IS : " . $break->job_id . "\n"; 
         $break->save();
+        
+        //prevent multiple deleting least recent entries 
+        //new notification to table
+        $notification = new Notification;
+        $notification->user_id = $user_id;
+        $notification->job_id = $job_id; 
+        echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";
+        $notification->save();
+        
 //        return response()->json(['success' => true]);
        return response()->json($job_id);
 

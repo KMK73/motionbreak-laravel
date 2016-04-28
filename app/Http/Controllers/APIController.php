@@ -667,21 +667,6 @@ COMPLETED BREAKS ROUTES
         $count = count($notifications);
         echo "count: ". $count. "\n";
         
-//        for($i=0; $i < count($notifications)-1; $i++){
-//            foreach ($notifications as $notification) {
-//                $jobID = $notification->job_id;
-//                echo "job id: " . $jobID . "\n"; 
-//            }
-//        }
-//        DB::table('jobs')->where('job_id', '!=',$jobID);
-//
-//        //if there is more than 1 notification listed for a user delete them
-//        //DB is database call directly
-//        foreach ($notifications as $notification) {
-//            DB::delete('delete from jobs where id = :id', ['id' => $notification]); 
-//            echo "deleted job: " . $notification . "\n"; 
-//
-//        }
     }
 }
 

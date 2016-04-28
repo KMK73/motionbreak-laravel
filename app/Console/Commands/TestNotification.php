@@ -164,7 +164,7 @@ class TestNotification extends Command
 
         //prevent multiple deleting least recent entries 
         //new notification to table
-        $notification = new Notification;
+        //$notification = new Notification;
         $notification->user_id = $user_id;
         $notification->job_id = $job_id; 
         echo "JOB ID saved in notification : " . $job_id . " notification ".$notification. "\n";

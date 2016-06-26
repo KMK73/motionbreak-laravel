@@ -507,7 +507,7 @@ COMPLETED BREAKS ROUTES
     
     public function notification() {
         
-        $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('f3a0aac8edee125b9973e3b6c491258cfc669ca7d1a75ac6b55e2dd7f79ce0ac');
+        $devices = \Davibennun\LaravelPushNotification\Facades\PushNotification::Device('79976cef2ec005f54b022ea5f87031bc609c277c75a9cebaa830564eb22a1ff5');
         
         $message = \Davibennun\LaravelPushNotification\Facades\PushNotification::Message('Hello message text working!',array(
             //'badge' => 1,
